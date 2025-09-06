@@ -21,21 +21,22 @@
       --text-dark: #ffffff;
     }
 #loadingOverlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #ff0000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: #ffffff;
-  z-index: 9999;
-  user-select: none;
-  animation: slideUpFadeOut 1s ease forwards;
-  animation-delay: 3s; /* รอ 3 วิ */
+position: fixed;
+top: 0; left: 0;
+width: 100vw;
+height: 100vh;
+background-color: #ffffff;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 2.5rem;
+font-weight: 900;
+color: #ffffff;
+z-index: 9999;
+user-select: none;
+opacity: 1;
+transform: translateY(0);
+transition: opacity 1s ease, transform 1s ease;
 }
 
 @keyframes slideUpFadeOut {
@@ -582,123 +583,85 @@ footer {
 }
 
 
-    
+    nav a.disabled {
+  pointer-events: none; /* กดไม่ได้ */
+  opacity: 0.5;         /* ทำให้ดูจางลง */
+  cursor: not-allowed;  /* เปลี่ยน cursor */
+  text-decoration: line-through; /* ใส่เส้นขีดก็ได้เพิ่ม effect */
+}
+
   </style>
 </head>
 <body class="dark">
 
 
- <!-- HTML: เพิ่ม Hamburger Menu -->
+<div id="loadingOverlay"></div>
+
+
 <header>
-  <div class="profile-name">
-    <img
-      src="https://scontent.furt1-1.fna.fbcdn.net/v/t39.30808-1/538922616_1286783493046213_6806397051672712937_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeEuS32oCc4OVkTUncBKi2kaDXTaDa0F3PcNdNoNrQXc94XW4DnMq_6nbhvZqtb0g1aLX0SHaEPh_IM1FzO4disx&_nc_ohc=A-6JPpEY0bcQ7kNvwGSXTjY&_nc_oc=AdlruHvFhmhS1skoW7Stoy-9FwleucBro1H-HrqMBl-Pvnedua11FWdTOrr6Haxgk1c&_nc_zt=24&_nc_ht=scontent.furt1-1.fna&_nc_gid=XF4Y_AahWCCzC2o8MV2HSA&oh=00_AfYMr8yZSifHuTbYodMyyJ6TGwsxPjR8mzZ8ysHqGQjm1w&oe=68C1A54A"
-      alt="Scotcs Duluka Profile"
-      loading="lazy" <!-- Lazy Loading -->
-   
-    <h1>Scotcs Duluka</h1>
-  </div>
-
-  <!-- Hamburger Button -->
-  <button id="hamburger" aria-label="Toggle menu">
-    ☰
-  </button>
-
-  <nav id="nav-menu">
-    <a href="index.html" class="active">Home</a>
-    <a href="about.html">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-    <button class="toggle-mode" onclick="toggleDarkMode()" aria-label="Toggle Theme Mode">🌗 Theme</button>
-  </nav>
+<div class="profile-name">
+<img src="https://scontent.furt1-1.fna.fbcdn.net/v/t39.30808-1/538922616_1286783493046213_6806397051672712937_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeEuS32oCc4OVkTUncBKi2kaDXTaDa0F3PcNdNoNrQXc94XW4DnMq_6nbhvZqtb0g1aLX0SHaEPh_IM1FzO4disx&_nc_ohc=A-6JPpEY0bcQ7kNvwGSXTjY&_nc_oc=AdlruHvFhmhS1skoW7Stoy-9FwleucBro1H-HrqMBl-Pvnedua11FWdTOrr6Haxgk1c&_nc_zt=24&_nc_ht=scontent.furt1-1.fna&_nc_gid=XF4Y_AahWCCzC2o8MV2HSA&oh=00_AfYMr8yZSifHuTbYodMyyJ6TGwsxPjR8mzZ8ysHqGQjm1w&oe=68C1A54A" alt="Scotcs Duluka Profile" loading="lazy">
+<h1>Scotcs Duluka</h1>
+</div>
+<button id="hamburger" aria-label="Toggle menu">☰</button>
+<nav id="nav-menu">
+<a href="index.html" class="active">Home</a>
+<a href="#about" class="disabled">About</a>
+<a href="#projects" class="disabled">Projects</a>
+<a href="#contact" class="disabled">Contact</a>
+<button class="toggle-mode" onclick="toggleDarkMode()" aria-label="Toggle Theme Mode">🌗 Theme</button>
+</nav>
 </header>
 
-  <main>
-    <section id="home">
-      <h2>Home</h2>
-      <p>Welcome to my personal site. This is where I share my work and connect with the world.</p>
-    </section>
-    
-  </main>
-  <footer>
-    <p>&copy; 2025 Scotcs Duluka | Personal Site</p>
-  </footer>
 
-  <button id="scrollTopBtn" title="Scroll to top">Up Page</button>
+<main>
+<section id="home">
+<h2>Home</h2>
+<p>Welcome to my personal site. This is where I share my work and connect with the world.</p>
+</section>
+</main>
+<footer>
+<p>&copy; 2025 Scotcs Duluka | Personal Site</p>
+</footer>
+<button id="scrollTopBtn" title="Scroll to top">Up Page</button>
 
-  <script>
-    // Toggle Dark/Light Mode
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-      // Save preference in localStorage
-      if(document.body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-      } else {
-        localStorage.setItem('theme', 'light');
-      }
-    }
 
-    // Load saved theme on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if(savedTheme === 'light') {
-        document.body.classList.remove('dark');
-        document.body.classList.add('light');
-      } else {
-        document.body.classList.add('dark');
-      }
-      setActiveNav();
-    });
-
-    // Highlight nav link based on scroll position
-    function setActiveNav() {
-      const sections = document.querySelectorAll('section');
-      const navLinks = document.querySelectorAll('nav a');
-      window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop - 70;
-          if(pageYOffset >= sectionTop) {
-            current = section.getAttribute('id');
-          }
-        });
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if(link.getAttribute('href') === '#' + current) {
-            link.classList.add('active');
-          }
-        });
-      });
-    }
-
-    // Scroll to top button
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-      if(document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        scrollTopBtn.style.display = 'block';
-      } else {
-        scrollTopBtn.style.display = 'none';
-      }
-    });
-    scrollTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-       // Hamburger menu toggle
-  const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('nav-menu');
-  hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('show');
-  });
-
-    window.addEventListener('load', () => {
-  const overlay = document.getElementById('loadingOverlay');
-  // รออนิเมะ 4 วิ (3 วิ delay + 1 วิ anim) แล้วซ่อน div
-  setTimeout(() => {
-    overlay.style.display = 'none';
-  }, 4000);
+<script>
+// Dark/Light Mode
+function toggleDarkMode() {
+document.body.classList.toggle('dark');
+document.body.classList.toggle('light');
+localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+window.addEventListener('DOMContentLoaded', () => {
+const savedTheme = localStorage.getItem('theme');
+if(savedTheme === 'light') document.body.classList.replace('dark', 'light');
 });
 
-  </script>
+
+// Hamburger
+document.getElementById('hamburger').addEventListener('click', () => {
+document.getElementById('nav-menu').classList.toggle('show');
+});
+
+
+// Scroll top
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+scrollBtn.style.display = (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? 'block' : 'none';
+});
+scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+
+// Loading Overlay
+window.addEventListener('load', () => {
+const overlay = document.getElementById('loadingOverlay');
+setTimeout(() => {
+overlay.style.opacity = '0';
+overlay.style.transform = 'translateY(-100vh)';
+setTimeout(() => overlay.style.display = 'none', 1000);
+}, 100);
+});
+</script>
 </body>
 </html>
