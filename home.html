@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scotcs Duluka | Personal Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --transition: 0.3s linear;
+      --accent: #81ff00;
+      --accent-dark: #3aac56;
+      --bg-light: #e8f6f4;
+      --bg-dark: #0f2f2f;
+      --bg-header-light: rgb(72 209 108 / 20%);
+      --bg-header-dark: rgb(26 83 28 / 70%);
+      --radius: 20px;
+      --shadow-light: 0 8px 20px rgb(72 209 102 / 20%);
+      --shadow-dark: 0 8px 20px rgb(20 60 34 / 70%);
+      --text-light: #005110;
+      --text-dark: #a8e9a0;
+    }
+#loadingOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #81ff00;
+  z-index: 9999;
+  user-select: none;
+  animation: slideUpFadeOut 1s ease forwards;
+  animation-delay: 3s; /* รอ 3 วิ */
+}
+
+@keyframes slideUpFadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh);
+  }
+}
+
+    /* Reset & common */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Noto Sans Thai', sans-serif;
+      color: var(--text-light);
+      background: transparent;
+      overflow-y: auto;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE 10+ */
+      scroll-behavior: smooth;
+      position: relative;
+    }
+    body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+
+    /* BG animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(270deg,
+        #06ff00, #005c03, #d9ffd4, #01ff09
+      );
+      background-size: 200% 200%;
+      filter: blur(1000px);
+      animation: moveBG 10s linear infinite;
+      z-index: -1;
+      transform-origin: center;
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+    @keyframes moveBG {
+      0% {
+        background-position: 0% 50%;
+        transform: rotate(0deg) scale(1);
+      }
+      50% {
+        background-position: 100% 50%;
+        transform: rotate(180deg) scale(1.05);
+      }
+      100% {
+        background-position: 0% 50%;
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      background-color: var(--bg-header-light);
+      box-shadow: var(--shadow-light);
+      color: var(--text-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .profile-name {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: default;
+    }
+    .profile-name img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
+    }
+    .profile-name img:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.6rem;
+      user-select: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-weight: 500;
+      transition: color var(--transition);
+      white-space: nowrap;
+      position: relative;
+    }
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+    }
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    button.toggle-mode {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.4rem 1rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: var(--accent);
+      color: #000000;
+      font-weight: 600;
+      transition: background var(--transition), transform 0.2s ease;
+      box-shadow: var(--shadow-light);
+      white-space: nowrap;
+      user-select: none;
+    }
+    button.toggle-mode:hover {
+      background: var(--accent-dark);
+      transform: scale(1.05);
+    }
+    button.toggle-mode svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+      transition: transform 0.3s ease;
+    }
+    button.toggle-mode:active svg {
+      transform: rotate(20deg);
+    }
+
+    main {
+      padding: 2rem;
+      background-color: rgba(232, 246, 244, 0.85);
+      color: var(--text-light);
+      min-height: 75.6vh;
+      transition: background var(--transition), color var(--transition);
+      border-radius: var(--radius);
+      max-width: 900px;
+      margin: 2rem auto;
+      box-shadow: var(--shadow-light);
+      backdrop-filter: blur(10px);
+    }
+    section {
+      margin-bottom: 2.5rem;
+    }
+    section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      border-left: 6px solid var(--accent);
+      padding-left: 12px;
+      font-weight: 700;
+      user-select: none;
+    }
+    section p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input,
+    textarea {
+      padding: 0.8rem;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--accent);
+      font-size: 1rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      color: var(--text-light);
+      transition: border-color var(--transition), background var(--transition);
+      resize: vertical;
+      min-height: 40px;
+    }
+    textarea {
+      min-height: 100px;
+    }
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent-dark);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 10px var(--accent-dark);
+    }
+
+    button.submit-btn {
+      padding: 0.8rem;
+      background: var(--accent);
+      color: #000000;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background var(--transition), transform 0.2s ease;
+      box-shadow: var(--shadow-light);
+    }
+    button.submit-btn:hover {
+      background: var(--accent-dark);
+      transform: scale(1.05);
+    }
+
+    /* Link Buttons */
+    .link-btn {
+      display: inline-block;
+      padding: 0.6rem 1rem;
+      margin: 0.5rem 0.8rem 0.5rem 0;
+      background: var(--accent);
+      color: #000000;
+      border-radius: var(--radius);
+      text-decoration: none;
+      box-shadow: var(--shadow-light);
+      transition: background var(--transition), transform 0.2s ease;
+      user-select: none;
+    }
+    .link-btn:hover {
+      background: var(--accent-dark);
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem 1rem;
+      backdrop-filter: blur(15px);
+      background-color: var(--bg-header-light);
+      box-shadow: var(--shadow-light);
+      color: var(--text-light);
+      transition: background var(--transition), color var(--transition);
+      margin-top: 2rem;
+      user-select: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    /* Scroll to Top Button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--accent);
+      color: #000000;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: var(--shadow-light);
+      font-weight: 700;
+      font-size: 1.2rem;
+      display: none;
+      z-index: 1100;
+      transition: background var(--transition), transform 0.2s ease;
+    }
+    #scrollTopBtn:hover {
+      background: var(--accent-dark);
+      transform: scale(1.1);
+    }
+
+    /* Dark mode */
+    body.dark {
+      --bg-light: #0f2f20;
+      --bg-header-light: var(--bg-header-dark);
+      --shadow-light: var(--shadow-dark);
+      --text-light: var(--text-dark);
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    body.dark body::before {
+      opacity: 0.3;
+    }
+    body.dark header {
+      background-color: var(--bg-header-dark);
+      box-shadow: var(--shadow-dark);
+      color: var(--text-light);
+    }
+    body.dark nav a {
+      color: var(--text-light);
+    }
+    body.dark nav a:hover,
+    body.dark nav a.active {
+      color: var(--accent);
+    }
+    body.dark button.toggle-mode {
+      box-shadow: var(--shadow-dark);
+    }
+    body.dark button.toggle-mode:hover {
+      background: var(--accent-dark);
+    }
+    body.dark main {
+      background-color: rgb(20 60 45 / 85%);
+      color: var(--text-light);
+      box-shadow: var(--shadow-dark);
+      backdrop-filter: blur(15px);
+    }
+    body.dark input,
+    body.dark textarea {
+      background: rgb(20 60 46 / 80%);
+      border: 1.5px solid var(--accent);
+      color: var(--text-light);
+    }
+    body.dark input:focus,
+    body.dark textarea:focus {
+      border-color: var(--accent-dark);
+      background: rgb(20 60 35);
+      box-shadow: 0 0 12px var(--accent-dark);
+    }
+    body.dark footer {
+      background-color: var(--bg-header-dark);
+      box-shadow: var(--shadow-dark);
+      color: var(--text-light);
+    }
+    body.dark .link-btn {
+      box-shadow: var(--shadow-dark);
+    }
+
+    /* Light mode */
+    body.light {
+      --bg-light: #e8f6ec;
+      --bg-header-light: rgb(72 209 152 / 20%);
+      --shadow-light: 0 8px 20px rgb(72 209 114 / 20%);
+      --text-light: #00512b;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+    body.light header {
+      background-color: var(--bg-header-light);
+      box-shadow: var(--shadow-light);
+      color: var(--text-light);
+    }
+    body.light nav a {
+      color: var(--text-light);
+    }
+    body.light nav a:hover,
+    body.light nav a.active {
+      color: var(--accent);
+    }
+    body.light button.toggle-mode {
+      box-shadow: var(--shadow-light);
+    }
+    body.light button.toggle-mode:hover {
+      background: var(--accent-dark);
+    }
+    body.light main {
+      background-color: rgba(232, 246, 244, 0.85);
+      color: var(--text-light);
+      box-shadow: var(--shadow-light);
+      backdrop-filter: blur(10px);
+    }
+    body.light input,
+    body.light textarea {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid var(--accent);
+      color: var(--text-light);
+    }
+    body.light input:focus,
+    body.light textarea:focus {
+      border-color: var(--accent-dark);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 10px var(--accent-dark);
+    }
+    body.light footer {
+      background-color: var(--bg-header-light);
+      box-shadow: var(--shadow-light);
+      color: var(--text-light);
+    }
+    body.light .link-btn {
+      box-shadow: var(--shadow-light);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+      }
+      .profile-name img {
+        width: 40px;
+        height: 40px;
+      }
+      header h1 {
+        font-size: 1.3rem;
+      }
+      nav {
+        width: 100%;
+        justify-content: space-around;
+        gap: 0.6rem;
+      }
+      nav a {
+        font-size: 0.95rem;
+      }
+      button.toggle-mode {
+        width: 100%;
+        padding: 0.6rem;
+        font-size: 1rem;
+      }
+      main {
+        margin: 1rem;
+        padding: 1.2rem;
+        min-height: auto;
+      }
+      section h2 {
+        font-size: 1.4rem;
+      }
+      section p {
+        font-size: 1rem;
+      }
+      input,
+      textarea {
+        font-size: 0.9rem;
+      }
+      button.submit-btn {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .profile-name img {
+        width: 36px;
+        height: 36px;
+      }
+      header h1 {
+        font-size: 1rem;
+      }
+      nav a {
+        font-size: 0.8rem;
+      }
+      button.toggle-mode {
+        font-size: 0.9rem;
+      }
+    }
+	/* CSS: Hamburger menu */
+#hamburger {
+  display: none;
+  background: var(--accent);
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #hamburger {
+    display: block;
+  }
+  nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: var(--bg-header-light);
+    padding: 1rem;
+    border-radius: var(--radius);
+  }
+  nav.show {
+    display: flex;
+  }
+}
+
+/* Hover Glow Effect */
+nav a:hover {
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+}
+
+/* Microinteraction: ปุ่มส่ง */
+button.submit-btn:active {
+  transform: scale(0.95) rotate(-2deg);
+  transition: transform 0.15s ease;
+}
+
+
+button.toggle-mode:active {
+  transform: scale(0.95) rotate(-2deg);
+  transition: transform 0.15s ease;
+}
+
+nav a:hover {
+  transform: scale(0.95) rotate(-2deg);
+  transition: transform 1.0s cubic-bezier(0.04, 0.72, 0.15, 0.86);
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1; /* ให้ main ดัน footer ลง */
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  background: rgba(0,0,0,0.8);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto; /* กัน footer ไม่ลอย */
+}
+
+
+    
+  </style>
+</head>
+<body class="dark">
+
+
+ <!-- HTML: เพิ่ม Hamburger Menu -->
+<header>
+  <div class="profile-name">
+    <img
+      src="https://scontent.furt1-1.fna.fbcdn.net/v/t39.30808-6/528220291_1270084378049458_8283594279254148084_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=_eM_kBritxwQ7kNvwFQk_sf&_nc_oc=Adm4xy4CNJ5GRZmFAnIZuleQ0usMEQ3N_V1DQeZbmC3QQTXc_xEzUyziBYVYE-qqEFc&_nc_zt=23&_nc_ht=scontent.furt1-1.fna&_nc_gid=cPMHfnK2jlQjLzz24Zi0HQ&oh=00_AfVU1EmotvZ9uD-6BrGD_-jGGj_jKrL3qlZ9oQiz4uuKog&oe=689E7104"
+      alt="Scotcs Duluka Profile"
+      loading="lazy" <!-- Lazy Loading -->
+   
+    <h1>Scotcs Duluka</h1>
+  </div>
+
+  <!-- Hamburger Button -->
+  <button id="hamburger" aria-label="Toggle menu">
+    ☰
+  </button>
+
+  <nav id="nav-menu">
+    <a href="#home" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <button class="toggle-mode" onclick="toggleDarkMode()" aria-label="Toggle Theme Mode">🌗 Theme</button>
+  </nav>
+</header>
+
+  <main>
+    <section id="home">
+      <h2>Home</h2>
+      <p>Welcome to my personal site. This is where I share my work and connect with the world.</p>
+    </section>
+    
+  </main>
+  <footer>
+    <p>&copy; 2025 Scotcs Duluka | Personal Site</p>
+  </footer>
+
+  <button id="scrollTopBtn" title="Scroll to top">Up Page</button>
+
+  <script>
+    // Toggle Dark/Light Mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+      // Save preference in localStorage
+      if(document.body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Load saved theme on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if(savedTheme === 'light') {
+        document.body.classList.remove('dark');
+        document.body.classList.add('light');
+      } else {
+        document.body.classList.add('dark');
+      }
+      setActiveNav();
+    });
+
+    // Highlight nav link based on scroll position
+    function setActiveNav() {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('nav a');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 70;
+          if(pageYOffset >= sectionTop) {
+            current = section.getAttribute('id');
+          }
+        });
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if(link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if(document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollTopBtn.style.display = 'block';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+       // Hamburger menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+
+    window.addEventListener('load', () => {
+  const overlay = document.getElementById('loadingOverlay');
+  // รออนิเมะ 4 วิ (3 วิ delay + 1 วิ anim) แล้วซ่อน div
+  setTimeout(() => {
+    overlay.style.display = 'none';
+  }, 4000);
+});
+
+  </script>
+</body>
+</html>
