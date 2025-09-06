@@ -10,13 +10,13 @@
       --transition: 0.3s linear;
       --accent: #ffffff;
       --accent-dark: #5c5c5cdb;
-      --bg-light: #ffffff00;
+      --bg-light: #ffffffd9;
       --bg-dark: #ffffff85;
-      --bg-header-light: rgb(255 255 255 / 20%);
+      --bg-header-light: rgb(255 255 255 / 83%);
       --bg-header-dark: rgb(0 0 0 / 70%);
       --radius: 45px;
-      --shadow-light: 0 8px 20px rgb(255 255 255 / 0%);
-      --shadow-dark: 0 8px 20px rgb(255 255 255 / 0%);
+      --shadow-light: 0 8px 20px rgb(0 0 0);
+      --shadow-dark: 0 8px 20px rgb(255 255 255 / 50%);
       --text-light: #000000;
       --text-dark: #ffffff;
     }
@@ -240,8 +240,8 @@
       border: 1.5px solid var(--accent);
       font-size: 1rem;
       outline: none;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
+      background: rgb(255 255 255 / 85%);
+      backdrop-filter: blur(100px);
       color: var(--text-light);
       transition: border-color var(--transition), background var(--transition);
       resize: vertical;
@@ -253,7 +253,7 @@
     input:focus,
     textarea:focus {
       border-color: var(--accent-dark);
-      background: rgba(255, 255, 255, 1);
+      background: rgb(255 255 255);
       box-shadow: 0 0 10px var(--accent-dark);
     }
 
@@ -330,7 +330,7 @@
 
     /* Dark mode */
     body.dark {
-      --bg-light: #555555;
+      --bg-light: #ffffff;
       --bg-header-light: var(--bg-header-dark);
       --shadow-light: var(--shadow-dark);
       --text-light: var(--text-dark);
@@ -391,9 +391,9 @@
 
     /* Light mode */
     body.light {
-      --bg-light: #ff000000;
-      --bg-header-light: rgb(88 88 88 / 20%);
-      --shadow-light: 0 8px 20px rgb(0 0 0 / 20%);
+      --bg-light: #ffffffc2;
+      --bg-header-light: rgb(255 255 255 / 65%);
+      --shadow-light: 0 8px 20px rgb(0 0 0 / 39%);
       --text-light: #000000;
       background-color: var(--bg-light);
       color: var(--text-light);
