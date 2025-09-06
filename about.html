@@ -8,34 +8,34 @@
   <style>
     :root {
       --transition: 0.3s linear;
-      --accent: #81ff00;
-      --accent-dark: #3aac56;
-      --bg-light: #e8f6f4;
-      --bg-dark: #0f2f2f;
-      --bg-header-light: rgb(72 209 108 / 20%);
-      --bg-header-dark: rgb(26 83 28 / 70%);
-      --radius: 20px;
-      --shadow-light: 0 8px 20px rgb(72 209 102 / 20%);
-      --shadow-dark: 0 8px 20px rgb(20 60 34 / 70%);
-      --text-light: #005110;
-      --text-dark: #a8e9a0;
+      --accent: #ffffff;
+      --accent-dark: #5c5c5cdb;
+      --bg-light: #ffffff00;
+      --bg-dark: #ffffff85;
+      --bg-header-light: rgb(255 255 255 / 20%);
+      --bg-header-dark: rgb(0 0 0 / 70%);
+      --radius: 45px;
+      --shadow-light: 0 8px 20px rgb(255 255 255 / 0%);
+      --shadow-dark: 0 8px 20px rgb(255 255 255 / 0%);
+      --text-light: #000000;
+      --text-dark: #ffffff;
     }
-    #loadingOverlay {
+#loadingOverlay {
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background-color: #ff0000;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2.5rem;
   font-weight: 900;
-  color: #81ff00;
+  color: #ffffff;
   z-index: 9999;
   user-select: none;
-  animation: slideUpFadeOut 0.80s cubic-bezier(0, 0, 0, 1.06) forwards;
-  animation-delay: 0.20s; /* รอ 3 วิ */
+  animation: slideUpFadeOut 1s ease forwards;
+  animation-delay: 3s; /* รอ 3 วิ */
 }
 
 @keyframes slideUpFadeOut {
@@ -48,7 +48,6 @@
     transform: translateY(-100vh);
   }
 }
-
 
     /* Reset & common */
     * {
@@ -75,12 +74,12 @@
       position: fixed;
       top: -50%;
       left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(270deg,
-        #06ff00, #005c03, #d9ffd4, #01ff09
+      width: 300%;
+      height: 300%;
+      background: linear-gradient(2300deg,
+        #fff500, #dd00ff, #000bff, #14ff00
       );
-      background-size: 200% 200%;
+      background-size: 100% 50%;
       filter: blur(1000px);
       animation: moveBG 10s linear infinite;
       z-index: -1;
@@ -331,7 +330,7 @@
 
     /* Dark mode */
     body.dark {
-      --bg-light: #0f2f20;
+      --bg-light: #555555;
       --bg-header-light: var(--bg-header-dark);
       --shadow-light: var(--shadow-dark);
       --text-light: var(--text-dark);
@@ -364,21 +363,21 @@
       background: var(--accent-dark);
     }
     body.dark main {
-      background-color: rgb(20 60 45 / 85%);
+      background-color: rgb(0 0 0 / 78%);
       color: var(--text-light);
       box-shadow: var(--shadow-dark);
       backdrop-filter: blur(15px);
     }
     body.dark input,
     body.dark textarea {
-      background: rgb(20 60 46 / 80%);
+      background: rgb(101 101 101 / 80%);
       border: 1.5px solid var(--accent);
       color: var(--text-light);
     }
     body.dark input:focus,
     body.dark textarea:focus {
       border-color: var(--accent-dark);
-      background: rgb(20 60 35);
+      background: rgb(42 42 42);
       box-shadow: 0 0 12px var(--accent-dark);
     }
     body.dark footer {
@@ -392,10 +391,10 @@
 
     /* Light mode */
     body.light {
-      --bg-light: #e8f6ec;
-      --bg-header-light: rgb(72 209 152 / 20%);
-      --shadow-light: 0 8px 20px rgb(72 209 114 / 20%);
-      --text-light: #00512b;
+      --bg-light: #ff000000;
+      --bg-header-light: rgb(88 88 88 / 20%);
+      --shadow-light: 0 8px 20px rgb(0 0 0 / 20%);
+      --text-light: #000000;
       background-color: var(--bg-light);
       color: var(--text-light);
     }
@@ -557,8 +556,7 @@ nav a:hover {
   transform: scale(0.95) rotate(-2deg);
   transition: transform 1.0s cubic-bezier(0.04, 0.72, 0.15, 0.86);
 }
-
-    html, body {
+html, body {
   height: 100%;
   margin: 0;
 }
@@ -583,17 +581,18 @@ footer {
   margin-top: auto; /* กัน footer ไม่ลอย */
 }
 
+
     
   </style>
 </head>
 <body class="dark">
-    <div id="loadingOverlay"></div>
+
 
  <!-- HTML: เพิ่ม Hamburger Menu -->
 <header>
   <div class="profile-name">
     <img
-      src="https://scontent.furt1-1.fna.fbcdn.net/v/t39.30808-6/528220291_1270084378049458_8283594279254148084_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=_eM_kBritxwQ7kNvwFQk_sf&_nc_oc=Adm4xy4CNJ5GRZmFAnIZuleQ0usMEQ3N_V1DQeZbmC3QQTXc_xEzUyziBYVYE-qqEFc&_nc_zt=23&_nc_ht=scontent.furt1-1.fna&_nc_gid=cPMHfnK2jlQjLzz24Zi0HQ&oh=00_AfVU1EmotvZ9uD-6BrGD_-jGGj_jKrL3qlZ9oQiz4uuKog&oe=689E7104"
+      src="https://scontent.furt1-1.fna.fbcdn.net/v/t39.30808-1/538922616_1286783493046213_6806397051672712937_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeEuS32oCc4OVkTUncBKi2kaDXTaDa0F3PcNdNoNrQXc94XW4DnMq_6nbhvZqtb0g1aLX0SHaEPh_IM1FzO4disx&_nc_ohc=A-6JPpEY0bcQ7kNvwGSXTjY&_nc_oc=AdlruHvFhmhS1skoW7Stoy-9FwleucBro1H-HrqMBl-Pvnedua11FWdTOrr6Haxgk1c&_nc_zt=24&_nc_ht=scontent.furt1-1.fna&_nc_gid=XF4Y_AahWCCzC2o8MV2HSA&oh=00_AfYMr8yZSifHuTbYodMyyJ6TGwsxPjR8mzZ8ysHqGQjm1w&oe=68C1A54A"
       alt="Scotcs Duluka Profile"
       loading="lazy" <!-- Lazy Loading -->
    
@@ -606,7 +605,7 @@ footer {
   </button>
 
   <nav id="nav-menu">
-    <a href="home.html">Home</a>
+    <a href="index.html" class="active">Home</a>
     <a href="about.html">About</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
@@ -615,15 +614,11 @@ footer {
 </header>
 
   <main>
-    <section id="about">
-      <h2>About</h2>
-      <p>Hi, I’m Scotcs Duluka. I create cool stuff on the web. Follow my journey here.</p>
+    <section id="home">
+      <h2>Home</h2>
+      <p>Welcome to my personal site. This is where I share my work and connect with the world.</p>
     </section>
-    <section id="projects">
-      <h2>Projects</h2>
-      <p>Here are some of my featured projects. More coming soon!</p>
-    </section>
-   
+    
   </main>
   <footer>
     <p>&copy; 2025 Scotcs Duluka | Personal Site</p>
@@ -689,22 +684,20 @@ footer {
     scrollTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-      // Hamburger menu toggle
+       // Hamburger menu toggle
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('nav-menu');
   hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('show');
   });
 
-window.addEventListener('load', () => {
+    window.addEventListener('load', () => {
   const overlay = document.getElementById('loadingOverlay');
   // รออนิเมะ 4 วิ (3 วิ delay + 1 วิ anim) แล้วซ่อน div
   setTimeout(() => {
     overlay.style.display = 'none';
   }, 4000);
 });
-
 
   </script>
 </body>
