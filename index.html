@@ -1,667 +1,221 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scotcs Duluka | Personal Site</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --transition: 0.3s linear;
-      --accent: #ffffff;
-      --accent-dark: #5c5c5cdb;
-      --bg-light: #ffffffd9;
-      --bg-dark: #ffffff85;
-      --bg-header-light: rgb(255 255 255 / 83%);
-      --bg-header-dark: rgb(0 0 0 / 70%);
-      --radius: 45px;
-      --shadow-light: 0 8px 20px rgb(0 0 0);
-      --shadow-dark: 0 8px 20px rgb(255 255 255 / 50%);
-      --text-light: #000000;
-      --text-dark: #ffffff;
-    }
-#loadingOverlay {
-position: fixed;
-top: 0; left: 0;
-width: 100vw;
-height: 100vh;
-background-color: #ffffff;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 2.5rem;
-font-weight: 900;
-color: #ffffff;
-z-index: 9999;
-user-select: none;
-opacity: 1;
-transform: translateY(0);
-transition: opacity 1s ease, transform 1s ease;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบคะแนน + 2 Event</title>
+<style>
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; margin: 0; background: #f0f0f0; }
+  #score { font-size: 2rem; margin-bottom: 20px; }
+  img { width: 250px; height: 250px; object-fit: cover; cursor: pointer; border-radius: 15px; transition: transform 0.2s; z-index: 1; }
+  img:active { transform: scale(0.95); }
 
-@keyframes slideUpFadeOut {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
+  /* ปุ่มรีเซ็ต */
+  #resetBtn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 8px 15px;
+    background: crimson;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 10;
   }
-  100% {
-    opacity: 0;
-    transform: translateY(-100vh);
-  }
-}
 
-    /* Reset & common */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Noto Sans Thai', sans-serif;
-      color: var(--text-light);
-      background: transparent;
-      overflow-y: auto;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE 10+ */
-      scroll-behavior: smooth;
-      position: relative;
-    }
-    body::-webkit-scrollbar {
-      display: none; /* Chrome, Safari */
-    }
-
-    /* BG animation */
-    body::before {
-      content: "";
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 300%;
-      height: 300%;
-      background: linear-gradient(2300deg,
-        #fff500, #dd00ff, #000bff, #14ff00
-      );
-      background-size: 100% 50%;
-      filter: blur(1000px);
-      animation: moveBG 10s linear infinite;
-      z-index: -1;
-      transform-origin: center;
-      opacity: 1;
-      transition: opacity 0.5s;
-    }
-    @keyframes moveBG {
-      0% {
-        background-position: 0% 50%;
-        transform: rotate(0deg) scale(1);
-      }
-      50% {
-        background-position: 100% 50%;
-        transform: rotate(180deg) scale(1.05);
-      }
-      100% {
-        background-position: 0% 50%;
-        transform: rotate(360deg) scale(1);
-      }
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(20px);
-      background-color: var(--bg-header-light);
-      box-shadow: var(--shadow-light);
-      color: var(--text-light);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-    .profile-name {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: default;
-    }
-    .profile-name img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid var(--accent);
-      transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
-    }
-    .profile-name img:hover {
-      transform: scale(1.1) rotate(5deg);
-    }
-    header h1 {
-      margin: 0;
-      font-weight: 700;
-      font-size: 1.6rem;
-      user-select: none;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      user-select: none;
-    }
-    nav a {
-      text-decoration: none;
-      color: var(--text-light);
-      font-weight: 500;
-      transition: color var(--transition);
-      white-space: nowrap;
-      position: relative;
-    }
-    nav a:hover,
-    nav a.active {
-      color: var(--accent);
-    }
-    nav a.active::after {
-      content: "";
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-
-    button.toggle-mode {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0.4rem 1rem;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      background: var(--accent);
-      color: #000000;
-      font-weight: 600;
-      transition: background var(--transition), transform 0.2s ease;
-      box-shadow: var(--shadow-light);
-      white-space: nowrap;
-      user-select: none;
-    }
-    button.toggle-mode:hover {
-      background: var(--accent-dark);
-      transform: scale(1.05);
-    }
-    button.toggle-mode svg {
-      width: 18px;
-      height: 18px;
-      fill: white;
-      transition: transform 0.3s ease;
-    }
-    button.toggle-mode:active svg {
-      transform: rotate(20deg);
-    }
-
-    main {
-      padding: 2rem;
-      background-color: rgba(232, 246, 244, 0.85);
-      color: var(--text-light);
-      min-height: 75.6vh;
-      transition: background var(--transition), color var(--transition);
-      border-radius: var(--radius);
-      max-width: 900px;
-      margin: 2rem auto;
-      box-shadow: var(--shadow-light);
-      backdrop-filter: blur(10px);
-    }
-    section {
-      margin-bottom: 2.5rem;
-    }
-    section h2 {
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-      border-left: 6px solid var(--accent);
-      padding-left: 12px;
-      font-weight: 700;
-      user-select: none;
-    }
-    section p {
-      line-height: 1.6;
-      font-size: 1.1rem;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    input,
-    textarea {
-      padding: 0.8rem;
-      border-radius: var(--radius);
-      border: 1.5px solid var(--accent);
-      font-size: 1rem;
-      outline: none;
-      background: rgb(255 255 255 / 85%);
-      backdrop-filter: blur(100px);
-      color: var(--text-light);
-      transition: border-color var(--transition), background var(--transition);
-      resize: vertical;
-      min-height: 40px;
-    }
-    textarea {
-      min-height: 100px;
-    }
-    input:focus,
-    textarea:focus {
-      border-color: var(--accent-dark);
-      background: rgb(255 255 255);
-      box-shadow: 0 0 10px var(--accent-dark);
-    }
-
-    button.submit-btn {
-      padding: 0.8rem;
-      background: var(--accent);
-      color: #000000;
-      border: none;
-      border-radius: var(--radius);
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background var(--transition), transform 0.2s ease;
-      box-shadow: var(--shadow-light);
-    }
-    button.submit-btn:hover {
-      background: var(--accent-dark);
-      transform: scale(1.05);
-    }
-
-    /* Link Buttons */
-    .link-btn {
-      display: inline-block;
-      padding: 0.6rem 1rem;
-      margin: 0.5rem 0.8rem 0.5rem 0;
-      background: var(--accent);
-      color: #000000;
-      border-radius: var(--radius);
-      text-decoration: none;
-      box-shadow: var(--shadow-light);
-      transition: background var(--transition), transform 0.2s ease;
-      user-select: none;
-    }
-    .link-btn:hover {
-      background: var(--accent-dark);
-      transform: scale(1.05);
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem 1rem;
-      backdrop-filter: blur(15px);
-      background-color: var(--bg-header-light);
-      box-shadow: var(--shadow-light);
-      color: var(--text-light);
-      transition: background var(--transition), color var(--transition);
-      margin-top: 2rem;
-      user-select: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    /* Scroll to Top Button */
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      color: #000000;
-      border: none;
-      padding: 0.7rem 1rem;
-      border-radius: var(--radius);
-      cursor: pointer;
-      box-shadow: var(--shadow-light);
-      font-weight: 700;
-      font-size: 1.2rem;
-      display: none;
-      z-index: 1100;
-      transition: background var(--transition), transform 0.2s ease;
-    }
-    #scrollTopBtn:hover {
-      background: var(--accent-dark);
-      transform: scale(1.1);
-    }
-
-    /* Dark mode */
-    body.dark {
-      --bg-light: #ffffff;
-      --bg-header-light: var(--bg-header-dark);
-      --shadow-light: var(--shadow-dark);
-      --text-light: var(--text-dark);
-      background-color: var(--bg-light);
-      color: var(--text-light);
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-attachment: fixed;
-      background-size: cover;
-    }
-    body.dark body::before {
-      opacity: 0.3;
-    }
-    body.dark header {
-      background-color: var(--bg-header-dark);
-      box-shadow: var(--shadow-dark);
-      color: var(--text-light);
-    }
-    body.dark nav a {
-      color: var(--text-light);
-    }
-    body.dark nav a:hover,
-    body.dark nav a.active {
-      color: var(--accent);
-    }
-    body.dark button.toggle-mode {
-      box-shadow: var(--shadow-dark);
-    }
-    body.dark button.toggle-mode:hover {
-      background: var(--accent-dark);
-    }
-    body.dark main {
-      background-color: rgb(0 0 0 / 78%);
-      color: var(--text-light);
-      box-shadow: var(--shadow-dark);
-      backdrop-filter: blur(15px);
-    }
-    body.dark input,
-    body.dark textarea {
-      background: rgb(101 101 101 / 80%);
-      border: 1.5px solid var(--accent);
-      color: var(--text-light);
-    }
-    body.dark input:focus,
-    body.dark textarea:focus {
-      border-color: var(--accent-dark);
-      background: rgb(42 42 42);
-      box-shadow: 0 0 12px var(--accent-dark);
-    }
-    body.dark footer {
-      background-color: var(--bg-header-dark);
-      box-shadow: var(--shadow-dark);
-      color: var(--text-light);
-    }
-    body.dark .link-btn {
-      box-shadow: var(--shadow-dark);
-    }
-
-    /* Light mode */
-    body.light {
-      --bg-light: #ffffffc2;
-      --bg-header-light: rgb(255 255 255 / 65%);
-      --shadow-light: 0 8px 20px rgb(0 0 0 / 39%);
-      --text-light: #000000;
-      background-color: var(--bg-light);
-      color: var(--text-light);
-    }
-    body.light header {
-      background-color: var(--bg-header-light);
-      box-shadow: var(--shadow-light);
-      color: var(--text-light);
-    }
-    body.light nav a {
-      color: var(--text-light);
-    }
-    body.light nav a:hover,
-    body.light nav a.active {
-      color: var(--accent);
-    }
-    body.light button.toggle-mode {
-      box-shadow: var(--shadow-light);
-    }
-    body.light button.toggle-mode:hover {
-      background: var(--accent-dark);
-    }
-    body.light main {
-      background-color: rgba(232, 246, 244, 0.85);
-      color: var(--text-light);
-      box-shadow: var(--shadow-light);
-      backdrop-filter: blur(10px);
-    }
-    body.light input,
-    body.light textarea {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1.5px solid var(--accent);
-      color: var(--text-light);
-    }
-    body.light input:focus,
-    body.light textarea:focus {
-      border-color: var(--accent-dark);
-      background: rgba(255, 255, 255, 1);
-      box-shadow: 0 0 10px var(--accent-dark);
-    }
-    body.light footer {
-      background-color: var(--bg-header-light);
-      box-shadow: var(--shadow-light);
-      color: var(--text-light);
-    }
-    body.light .link-btn {
-      box-shadow: var(--shadow-light);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-      }
-      .profile-name img {
-        width: 40px;
-        height: 40px;
-      }
-      header h1 {
-        font-size: 1.3rem;
-      }
-      nav {
-        width: 100%;
-        justify-content: space-around;
-        gap: 0.6rem;
-      }
-      nav a {
-        font-size: 0.95rem;
-      }
-      button.toggle-mode {
-        width: 100%;
-        padding: 0.6rem;
-        font-size: 1rem;
-      }
-      main {
-        margin: 1rem;
-        padding: 1.2rem;
-        min-height: auto;
-      }
-      section h2 {
-        font-size: 1.4rem;
-      }
-      section p {
-        font-size: 1rem;
-      }
-      input,
-      textarea {
-        font-size: 0.9rem;
-      }
-      button.submit-btn {
-        font-size: 1.1rem;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .profile-name img {
-        width: 36px;
-        height: 36px;
-      }
-      header h1 {
-        font-size: 1rem;
-      }
-      nav a {
-        font-size: 0.8rem;
-      }
-      button.toggle-mode {
-        font-size: 0.9rem;
-      }
-    }
-	/* CSS: Hamburger menu */
-#hamburger {
-  display: none;
-  background: var(--accent);
-  color: white;
-  font-size: 1.5rem;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--radius);
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  #hamburger {
-    display: block;
-  }
-  nav {
+  /* กล่องยืนยัน */
+  #confirmBox {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
     display: none;
-    flex-direction: column;
-    width: 100%;
-    background: var(--bg-header-light);
-    padding: 1rem;
-    border-radius: var(--radius);
+    z-index: 30;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   }
-  nav.show {
+  #confirmBox button {
+    margin: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #yesBtn { background: green; color: white; }
+  #noBtn { background: gray; color: white; }
+
+  /* overlay มืดเทา */
+  #overlay {
+    position: fixed;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(34,34,34,0.9); 
+    opacity: 0;
+    pointer-events: none;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 2s ease;
+    z-index: 20;
   }
-}
 
-/* Hover Glow Effect */
-nav a:hover {
-  color: var(--accent);
-  text-shadow: 0 0 10px var(--accent);
-}
+  #overlay img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+  }
 
-/* Microinteraction: ปุ่มส่ง */
-button.submit-btn:active {
-  transform: scale(0.95) rotate(-2deg);
-  transition: transform 0.15s ease;
-}
-
-
-button.toggle-mode:active {
-  transform: scale(0.95) rotate(-2deg);
-  transition: transform 0.15s ease;
-}
-
-nav a:hover {
-  transform: scale(0.95) rotate(-2deg);
-  transition: transform 1.0s cubic-bezier(0.04, 0.72, 0.15, 0.86);
-}
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1; /* ให้ main ดัน footer ลง */
-  display: flex;
-  flex-direction: column;
-}
-
-footer {
-  background: rgba(0,0,0,0.8);
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto; /* กัน footer ไม่ลอย */
-}
-
-
-    nav a.disabled {
-  pointer-events: none; /* กดไม่ได้ */
-  opacity: 0.5;         /* ทำให้ดูจางลง */
-  cursor: not-allowed;  /* เปลี่ยน cursor */
-  text-decoration: line-through; /* ใส่เส้นขีดก็ได้เพิ่ม effect */
-}
-
-  </style>
+  #overlay p {
+    color: red;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 5px 0;
+  }
+</style>
 </head>
-<body class="dark">
+<body>
 
+<div id="score">คะแนน: 0</div>
 
-<div id="loadingOverlay"></div>
+<img id="myImage" src="https://limbuscompany.wiki.gg/images/Don_Quixote_Sprite_3.png?eafa96" alt="กดฉัน">
 
+<audio id="clickSound" src="https://static.wikia.nocookie.net/limbuscompany/images/4/4c/LCB_Sinner_Don_Quixote_Stagger.wav/revision/latest?cb=20230603105543"></audio>
 
-<header>
-<div class="profile-name">
-<img src="https://scontent.furt1-1.fna.fbcdn.net/v/t39.30808-1/538922616_1286783493046213_6806397051672712937_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeEuS32oCc4OVkTUncBKi2kaDXTaDa0F3PcNdNoNrQXc94XW4DnMq_6nbhvZqtb0g1aLX0SHaEPh_IM1FzO4disx&_nc_ohc=A-6JPpEY0bcQ7kNvwGSXTjY&_nc_oc=AdlruHvFhmhS1skoW7Stoy-9FwleucBro1H-HrqMBl-Pvnedua11FWdTOrr6Haxgk1c&_nc_zt=24&_nc_ht=scontent.furt1-1.fna&_nc_gid=XF4Y_AahWCCzC2o8MV2HSA&oh=00_AfYMr8yZSifHuTbYodMyyJ6TGwsxPjR8mzZ8ysHqGQjm1w&oe=68C1A54A" alt="Scotcs Duluka Profile" loading="lazy">
-<h1>Scotcs Duluka</h1>
+<button id="resetBtn">รีเซ็ต</button>
+
+<!-- กล่องยืนยัน -->
+<div id="confirmBox">
+  <p id="confirmText">คุณแน่ใจหรือไม่?</p>
+  <button id="yesBtn">ใช่</button>
+  <button id="noBtn">ไม่</button>
 </div>
-<button id="hamburger" aria-label="Toggle menu">☰</button>
-<nav id="nav-menu">
-<a href="index.html" class="active">Home</a>
-<a href="#about" class="disabled">About</a>
-<a href="#projects" class="disabled">Projects</a>
-<a href="#contact" class="disabled">Contact</a>
-<button class="toggle-mode" onclick="toggleDarkMode()" aria-label="Toggle Theme Mode">🌗 Theme</button>
-</nav>
-</header>
 
-
-<main>
-<section id="home">
-<h2>Home</h2>
-<p>Welcome to my personal site. This is where I share my work and connect with the world.</p>
-</section>
-</main>
-<footer>
-<p>&copy; 2025 Scotcs Duluka | Personal Site</p>
-</footer>
-<button id="scrollTopBtn" title="Scroll to top">Up Page</button>
-
+<!-- Overlay Event -->
+<div id="overlay">
+  <img id="overlayImage" src="https://limbuscompany.wiki.gg/images/Don_Quixote_Bloodfiend_Silhouette_Eyes_StandingSprite.png?35661d" alt="Secret Event">
+  <p id="overlayText1"></p>
+  <p id="overlayText2"></p>
+  <button id="consentBtn" style="display:none; padding:8px 15px; border:none; border-radius:8px; background:green; color:white; cursor:pointer;">ยินยอม</button>
+</div>
 
 <script>
-// Dark/Light Mode
-function toggleDarkMode() {
-document.body.classList.toggle('dark');
-document.body.classList.toggle('light');
-localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+let score = 0;
+let pointsPerClick = 1; // ปกติ 1 ต่อครั้ง
+let isLocked = false;
+const scoreDisplay = document.getElementById('score');
+const img = document.getElementById('myImage');
+const sound = document.getElementById('clickSound');
+const resetBtn = document.getElementById('resetBtn');
+const confirmBox = document.getElementById('confirmBox');
+const confirmText = document.getElementById('confirmText');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+const overlay = document.getElementById('overlay');
+const overlayImage = document.getElementById('overlayImage');
+const overlayText1 = document.getElementById('overlayText1');
+const overlayText2 = document.getElementById('overlayText2');
+const consentBtn = document.getElementById('consentBtn');
+let confirmAction = "";
+
+// โหลดคะแนน
+if(localStorage.getItem('score')){
+  score = parseInt(localStorage.getItem('score'));
+  updateUI();
 }
-window.addEventListener('DOMContentLoaded', () => {
-const savedTheme = localStorage.getItem('theme');
-if(savedTheme === 'light') document.body.classList.replace('dark', 'light');
+
+// อัปเดต UI
+function updateUI(){
+  scoreDisplay.textContent = 'คะแนน: ' + score;
+  if(score >= 100){
+    img.src = "https://limbuscompany.wiki.gg/images/Don_Quixote_Sprite_7.png?597960";
+  } else {
+    img.src = "https://limbuscompany.wiki.gg/images/Don_Quixote_Sprite_3.png?eafa96";
+  }
+}
+
+// Event แบบหักคะแนน
+function triggerLoseEvent(){
+  isLocked = true;
+  overlayText1.textContent = "";
+  overlayText2.textContent = "";
+  consentBtn.style.display = "none";
+  overlay.style.opacity = 1;
+  overlay.style.pointerEvents = "auto";
+
+  setTimeout(() => {
+    score = Math.max(0, score - 100);
+    localStorage.setItem('score', score);
+    updateUI();
+
+    overlay.style.opacity = 0;
+    setTimeout(()=>{ isLocked = false; overlay.style.pointerEvents="none"; },2000);
+  }, 4000);
+}
+
+// Event แบบถาม
+function triggerQuestionEvent(){
+  isLocked = true;
+  overlayText1.textContent = "… Thus marks the end of the dreaming.";
+  overlayText2.textContent = "Do you have to consent to her presence?";
+  consentBtn.style.display = "block";
+  overlay.style.opacity = 1;
+  overlay.style.pointerEvents = "auto";
+}
+
+// กดยินยอม Event 2
+consentBtn.addEventListener('click', ()=>{
+  img.src = "https://limbuscompany.wiki.gg/images/Don_Quixote_Sancho_Past_Sprite_1.png?dfba03";
+  pointsPerClick = 2;
+  overlay.style.opacity = 0;
+  setTimeout(()=>{ isLocked = false; overlay.style.pointerEvents="none"; },2000);
+  consentBtn.style.display = "none";
+  overlayText1.textContent = "";
+  overlayText2.textContent = "";
 });
 
+// กดรูป
+img.addEventListener('click', ()=>{
+  if(isLocked) return;
+  score += pointsPerClick;
+  localStorage.setItem('score', score);
+  updateUI();
+  sound.currentTime = 0;
+  sound.play();
 
-// Hamburger
-document.getElementById('hamburger').addEventListener('click', () => {
-document.getElementById('nav-menu').classList.toggle('show');
+  let rand = Math.random();
+  if(rand < 0.005){ // 0.5% Event 2
+    triggerQuestionEvent();
+  } else if(rand < 0.015){ // 1% Event 1
+    triggerLoseEvent();
+  }
 });
 
-
-// Scroll top
-const scrollBtn = document.getElementById('scrollTopBtn');
-window.addEventListener('scroll', () => {
-scrollBtn.style.display = (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? 'block' : 'none';
+// รีเซ็ต
+resetBtn.addEventListener('click', ()=>{
+  confirmText.textContent = "คุณต้องการรีเซ็ตคะแนนหรือไม่?";
+  confirmBox.style.display = "block";
+  confirmAction = "reset";
 });
-scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+yesBtn.addEventListener('click', ()=>{
+  if(confirmAction==="reset"){
+    score=0;
+    pointsPerClick = 1;
+  }
+  localStorage.setItem('score', score);
+  updateUI();
+  confirmBox.style.display="none";
+});
 
-// Loading Overlay
-window.addEventListener('load', () => {
-const overlay = document.getElementById('loadingOverlay');
-setTimeout(() => {
-overlay.style.opacity = '0';
-overlay.style.transform = 'translateY(-100vh)';
-setTimeout(() => overlay.style.display = 'none', 1000);
-}, 100);
+noBtn.addEventListener('click', ()=>{
+  confirmBox.style.display="none";
 });
 </script>
+
 </body>
 </html>
