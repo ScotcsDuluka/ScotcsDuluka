@@ -2,224 +2,183 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<title>สุ่มสิ่งมีชีวิตในน้ำแบบ RPG มือถือ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ป็อปโม Powered บักมิกซ์</title>
 <style>
-  body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; margin: 0; background: #f0f0f0; }
-  #score { font-size: 2rem; margin-bottom: 20px; }
-  img { width: 250px; height: 250px; object-fit: cover; cursor: pointer; border-radius: 15px; transition: transform 0.2s; z-index: 1; }
-  img:active { transform: scale(0.95); }
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #00bcd4, #e0f7fa);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
 
-  /* ปุ่มรีเซ็ต */
-  #resetBtn {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 8px 15px;
-    background: crimson;
+  h1 {
+    margin-top: 20px;
+    color: #006064;
+    text-shadow: 1px 1px 2px #000;
+    font-size: 24px;
+  }
+
+  #creatureBox {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 300px;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    transition: transform 0.5s, box-shadow 0.5s;
+    position: relative;
+  }
+
+  #creatureEmoji {
+    font-size: 80px; /* ขนาดใหญ่พอเหมาะมือถือ */
+    margin-bottom: 10px;
+    transition: transform 0.5s;
+  }
+
+  #creatureName {
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.5s, transform 0.5s;
+  }
+
+  button {
+    padding: 12px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #00acc1;
     color: white;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    z-index: 10;
+    box-shadow: 0 4px #00838f;
+    transition: 0.2s;
+    width: 60%;
+    max-width: 250px;
   }
 
-  /* กล่องยืนยัน */
-  #confirmBox {
+  button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 #00838f;
+  }
+
+  /* วิบวับสำหรับ SSS */
+  @keyframes sparkle {
+    0%, 100% { box-shadow: 0 0 15px #e91e63, 0 0 30px #ff80ab, 0 0 45px #f48fb1; }
+    50% { box-shadow: 0 0 30px #ff80ab, 0 0 60px #f48fb1, 0 0 90px #e91e63; }
+  }
+
+  /* Pop-up กลาง-ล่างจอ */
+  #popup {
     position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    display: none;
-    z-index: 30;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  }
-  #confirmBox button {
-    margin: 10px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  #yesBtn { background: green; color: white; }
-  #noBtn { background: gray; color: white; }
-
-  /* overlay มืดเทา */
-  #overlay {
-    position: fixed;
-    top: 0; left: 0; 
-    width: 100%; height: 100%;
-    background: rgba(34,34,34,0.9); 
-    opacity: 0;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 2s ease;
-    z-index: 20;
+    z-index: 1000;
+    transition: transform 0.5s, box-shadow 0.5s;
+    box-shadow: 0 0 30px #e91e63;
+    width: 80%;
+    max-width: 300px;
   }
 
-  #overlay img {
-    width: 300px;
-    height: auto;
-    margin-bottom: 20px;
+  #popup.show {
+    transform: translateX(-50%) scale(1);
+    animation: sparkle 1s infinite;
   }
 
-  #overlay p {
-    color: red;
-    font-size: 1.2rem;
-    text-align: center;
-    margin: 5px 0;
+  #popupEmoji {
+    font-size: 100px; /* ขยายใหญ่สำหรับ Pop-up */
+  }
+
+  #popup h2 {
+    font-size: 28px;
+    color: #e91e63;
+    margin: 15px 0 0;
+    text-shadow: 2px 2px 4px #000;
   }
 </style>
 </head>
 <body>
 
-<div id="score">คะแนน: 0</div>
+<h1>สุ่มสิ่งมีชีวิตในน้ำ</h1>
 
-<img id="myImage" src="https://scontent-bkk1-2.xx.fbcdn.net/v/t1.15752-9/474901202_618890060922314_5577143995370959330_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGkksOqr-T7A43Vv2hPoCPVu3DeB_8KPe27cN4H_wo97eLrOpZRo-TdkmTP5dvqx1akzxybQFO-neMnO4tMHUI-&_nc_ohc=C5gyj5hfY10Q7kNvwFY3xDF&_nc_oc=Adm4scXwZx_ZgXa5WyEH11bxEXdA5cv2dOtqTe8UJ8CQSuFjjfK3ds4p8qyD7ZhMWQY&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&oh=03_Q7cD3QFXhcBrB_yZqh8WM9Ies32vC2VOyKSeapnU-OuqBQD8wQ&oe=68F1D3A2" alt="กดฉัน">
-
-<audio id="clickSound" src="https://static.wikia.nocookie.net/limbuscompany/images/4/4c/LCB_Sinner_Don_Quixote_Stagger.wav/revision/latest?cb=20230603105543"></audio>
-
-<button id="resetBtn">รีเซ็ต</button>
-
-<!-- กล่องยืนยัน -->
-<div id="confirmBox">
-  <p id="confirmText">คุณแน่ใจหรือไม่?</p>
-  <button id="yesBtn">ใช่</button>
-  <button id="noBtn">ไม่</button>
+<div id="creatureBox">
+  <div id="creatureEmoji">❓</div>
+  <div id="creatureName">รอดูสิ่งมีชีวิต...</div>
 </div>
 
-<!-- Overlay Event -->
-<div id="overlay">
-  <img id="overlayImage" src="https://limbuscompany.wiki.gg/images/Don_Quixote_Bloodfiend_Silhouette_Eyes_StandingSprite.png?35661d" alt="Secret Event">
-  <p id="overlayText1"></p>
-  <p id="overlayText2"></p>
-  <button id="consentBtn" style="display:none; padding:8px 15px; border:none; border-radius:8px; background:green; color:white; cursor:pointer;">ยินยอม</button>
+<button onclick="spawnCreature()">เปิดกล่องสุ่ม!</button>
+
+<!-- Pop-up กลาง-ล่างจอ -->
+<div id="popup">
+  <div id="popupEmoji">❓</div>
+  <h2 id="popupName"></h2>
 </div>
+
+<!-- เสียง -->
+<audio id="soundCommon" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+<audio id="soundUncommon" src="https://www.soundjay.com/button/button-09.wav"></audio>
+<audio id="soundRare" src="https://www.soundjay.com/button/button-3.wav"></audio>
+<audio id="soundLegend" src="https://www.soundjay.com/button/button-4.wav"></audio>
+<audio id="soundSSS" src="https://www.soundjay.com/button/button-10.wav"></audio>
 
 <script>
-let score = 0;
-let pointsPerClick = 1; // ปกติ 1 ต่อครั้ง
-let isLocked = false;
-const scoreDisplay = document.getElementById('score');
-const img = document.getElementById('myImage');
-const sound = document.getElementById('clickSound');
-const resetBtn = document.getElementById('resetBtn');
-const confirmBox = document.getElementById('confirmBox');
-const confirmText = document.getElementById('confirmText');
-const yesBtn = document.getElementById('yesBtn');
-const noBtn = document.getElementById('noBtn');
-const overlay = document.getElementById('overlay');
-const overlayImage = document.getElementById('overlayImage');
-const overlayText1 = document.getElementById('overlayText1');
-const overlayText2 = document.getElementById('overlayText2');
-const consentBtn = document.getElementById('consentBtn');
-let confirmAction = "";
+  const creatures = [
+    { name: "ปลาเล็ก", rarity: "ธรรมดา", chance: 45, emoji: "🐟", color: "#4caf50", sound: "soundCommon" },
+    { name: "ปลาสีสันสดใส", rarity: "ไม่ธรรมดา", chance: 25, emoji: "🐠", color: "#2196f3", sound: "soundUncommon" },
+    { name: "ปลาฉลาม", rarity: "หายาก", chance: 15, emoji: "🦈", color: "#ff9800", sound: "soundRare" },
+    { name: "ปลาวาฬ", rarity: "ตำนาน", chance: 14, emoji: "🐋", color: "#9c27b0", sound: "soundLegend" },
+    { name: "กุ้ง", rarity: "SSS", chance: 1, emoji: "🦐", color: "#e91e63", sound: "soundSSS" }
+  ];
 
-// โหลดคะแนน
-if(localStorage.getItem('score')){
-  score = parseInt(localStorage.getItem('score'));
-  updateUI();
-}
+  function spawnCreature() {
+    const box = document.getElementById("creatureBox");
+    const emoji = document.getElementById("creatureEmoji");
+    const name = document.getElementById("creatureName");
 
-// อัปเดต UI
-function updateUI(){
-  scoreDisplay.textContent = 'คะแนน: ' + score;
-  if(score >= 100){
-    img.src = "https://scontent-bkk1-2.xx.fbcdn.net/v/t1.15752-9/474901202_618890060922314_5577143995370959330_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGkksOqr-T7A43Vv2hPoCPVu3DeB_8KPe27cN4H_wo97eLrOpZRo-TdkmTP5dvqx1akzxybQFO-neMnO4tMHUI-&_nc_ohc=C5gyj5hfY10Q7kNvwFY3xDF&_nc_oc=Adm4scXwZx_ZgXa5WyEH11bxEXdA5cv2dOtqTe8UJ8CQSuFjjfK3ds4p8qyD7ZhMWQY&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&oh=03_Q7cD3QFXhcBrB_yZqh8WM9Ies32vC2VOyKSeapnU-OuqBQD8wQ&oe=68F1D3A2";
-  } else {
-    img.src = "https://scontent-bkk1-2.xx.fbcdn.net/v/t1.15752-9/474901202_618890060922314_5577143995370959330_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGkksOqr-T7A43Vv2hPoCPVu3DeB_8KPe27cN4H_wo97eLrOpZRo-TdkmTP5dvqx1akzxybQFO-neMnO4tMHUI-&_nc_ohc=C5gyj5hfY10Q7kNvwFY3xDF&_nc_oc=Adm4scXwZx_ZgXa5WyEH11bxEXdA5cv2dOtqTe8UJ8CQSuFjjfK3ds4p8qyD7ZhMWQY&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&oh=03_Q7cD3QFXhcBrB_yZqh8WM9Ies32vC2VOyKSeapnU-OuqBQD8wQ&oe=68F1D3A2";
+    box.style.transform = "scale(1.1)";
+    emoji.style.transform = "rotate(15deg)";
+    name.style.transform = "scale(1.2)";
+    
+    setTimeout(() => {
+      box.style.transform = "scale(1)";
+      emoji.style.transform = "rotate(0deg)";
+      name.style.transform = "scale(1)";
+    }, 500);
+
+    const rand = Math.random() * 100;
+    let total = 0;
+    for (let c of creatures) {
+      total += c.chance;
+      if (rand <= total) {
+        name.innerText = `${c.name} (${c.rarity})`;
+        name.style.color = c.color;
+        emoji.innerText = c.emoji;
+
+        const sound = document.getElementById(c.sound);
+        if (sound) { sound.currentTime = 0; sound.play(); }
+
+        // ถ้าเป็น SSS แสดง Pop-up กลาง-ล่าง
+        if(c.rarity === "SSS"){
+          const popup = document.getElementById("popup");
+          document.getElementById("popupEmoji").innerText = c.emoji;
+          document.getElementById("popupName").innerText = `${c.name} (${c.rarity})`;
+          popup.classList.add("show");
+          setTimeout(() => { popup.classList.remove("show"); }, 3000);
+        }
+
+        return;
+      }
+    }
   }
-}
-
-// Event แบบหักคะแนน
-function triggerLoseEvent(){
-  isLocked = true;
-  overlayText1.textContent = "";
-  overlayText2.textContent = "";
-  consentBtn.style.display = "none";
-  overlay.style.opacity = 1;
-  overlay.style.pointerEvents = "auto";
-
-  setTimeout(() => {
-    score = Math.max(0, score - 100);
-    localStorage.setItem('score', score);
-    updateUI();
-
-    overlay.style.opacity = 0;
-    setTimeout(()=>{ isLocked = false; overlay.style.pointerEvents="none"; },2000);
-  }, 4000);
-}
-
-// Event แบบถาม
-function triggerQuestionEvent(){
-  isLocked = true;
-  overlayText1.textContent = "… Thus marks the end of the dreaming.";
-  overlayText2.textContent = "Do you have to consent to her presence?";
-  consentBtn.style.display = "block";
-  overlay.style.opacity = 1;
-  overlay.style.pointerEvents = "auto";
-}
-
-// กดยินยอม Event 2
-consentBtn.addEventListener('click', ()=>{
-  img.src = "https://limbuscompany.wiki.gg/images/Don_Quixote_Sancho_Past_Sprite_1.png?dfba03";
-  pointsPerClick = 2;
-  overlay.style.opacity = 0;
-  setTimeout(()=>{ isLocked = false; overlay.style.pointerEvents="none"; },2000);
-  consentBtn.style.display = "none";
-  overlayText1.textContent = "";
-  overlayText2.textContent = "";
-});
-
-// กดรูป
-img.addEventListener('click', ()=>{
-  if(isLocked) return;
-  score += pointsPerClick;
-  localStorage.setItem('score', score);
-  updateUI();
-  sound.currentTime = 0;
-  sound.play();
-
-  let rand = Math.random();
-  if(rand < 0.005){ // 0.5% Event 2
-    triggerQuestionEvent();
-  } else if(rand < 0.015){ // 1% Event 1
-    triggerLoseEvent();
-  }
-});
-
-// รีเซ็ต
-resetBtn.addEventListener('click', ()=>{
-  confirmText.textContent = "คุณต้องการรีเซ็ตคะแนนหรือไม่?";
-  confirmBox.style.display = "block";
-  confirmAction = "reset";
-});
-
-yesBtn.addEventListener('click', ()=>{
-  if(confirmAction==="reset"){
-    score=0;
-    pointsPerClick = 1;
-  }
-  localStorage.setItem('score', score);
-  updateUI();
-  confirmBox.style.display="none";
-});
-
-noBtn.addEventListener('click', ()=>{
-  confirmBox.style.display="none";
-});
 </script>
 
 </body>
 </html>
-
-
-
-
