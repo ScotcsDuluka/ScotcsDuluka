@@ -2,183 +2,406 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>สุ่มสิ่งมีชีวิตในน้ำแบบ RPG มือถือ</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Summoning</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;900&display=swap" rel="stylesheet">
 <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
   body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: linear-gradient(to bottom, #00bcd4, #e0f7fa);
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  h1 {
-    margin-top: 20px;
-    color: #006064;
-    text-shadow: 1px 1px 2px #000;
-    font-size: 24px;
-  }
-
-  #creatureBox {
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 15px;
-    width: 80%;
-    max-width: 300px;
-    background-color: #ffffff;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    transition: transform 0.5s, box-shadow 0.5s;
-    position: relative;
-  }
-
-  #creatureEmoji {
-    font-size: 80px; /* ขนาดใหญ่พอเหมาะมือถือ */
-    margin-bottom: 10px;
-    transition: transform 0.5s;
-  }
-
-  #creatureName {
-    font-size: 20px;
-    font-weight: bold;
-    transition: color 0.5s, transform 0.5s;
-  }
-
-  button {
-    padding: 12px 25px;
-    font-size: 18px;
-    cursor: pointer;
-    margin-top: 20px;
-    border-radius: 8px;
-    background-color: #00acc1;
+    font-family: 'Kanit', sans-serif;
+    background: #020510; /* สีดำน้ำเงินเข้ม ไม่ใช่สีดำล้วน */
     color: white;
-    border: none;
-    box-shadow: 0 4px #00838f;
-    transition: 0.2s;
-    width: 60%;
-    max-width: 250px;
+    height: 100vh; width: 100vw;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  button:active {
-    transform: translateY(4px);
-    box-shadow: 0 0 #00838f;
+  /* === 1. พื้นหลังฝุ่นลอย (Canvas) === */
+  #dustCanvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
   }
 
-  /* วิบวับสำหรับ SSS */
-  @keyframes sparkle {
-    0%, 100% { box-shadow: 0 0 15px #e91e63, 0 0 30px #ff80ab, 0 0 45px #f48fb1; }
-    50% { box-shadow: 0 0 30px #ff80ab, 0 0 60px #f48fb1, 0 0 90px #e91e63; }
+  /* === 2. Vignette (มืดขอบจอ) === */
+  .vignette {
+    position: fixed; inset: 0; z-index: 1;
+    background: radial-gradient(circle at center, transparent 30%, #000000 120%);
+    pointer-events: none;
   }
 
-  /* Pop-up กลาง-ล่างจอ */
-  #popup {
-    position: fixed;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%) scale(0);
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    z-index: 1000;
-    transition: transform 0.5s, box-shadow 0.5s;
-    box-shadow: 0 0 30px #e91e63;
-    width: 80%;
-    max-width: 300px;
+  /* === 3. หมอกด้านบนและล่าง (Fog) === */
+  .fog {
+    position: fixed; left: 0; width: 100%; height: 25%; z-index: 2; pointer-events: none;
+  }
+  .fog-top { top: 0; background: linear-gradient(to bottom, #020510, transparent); }
+  .fog-bottom { bottom: 0; background: linear-gradient(to top, #020510, transparent); }
+
+  /* === แสงเรืองรอบจอ === */
+  #ambient-glow {
+    position: fixed; top: 50%; left: 50%;
+    width: 150vmax; height: 150vmax;
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, #000 70%);
+    transform: translate(-50%, -50%);
+    z-index: 3; pointer-events: none;
+    transition: background 1.5s ease;
+    opacity: 0; /* ซ่อนไว้ก่อน */
+  }
+  #ambient-glow.ssr { opacity: 1; background: radial-gradient(circle, rgba(233,30,99,0.3) 0%, #000 70%); }
+  #ambient-glow.secret { opacity: 1; background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, #000 70%); }
+  #ambient-glow.legend { opacity: 1; background: radial-gradient(circle, rgba(156,39,176,0.3) 0%, #000 70%); }
+
+  /* === Flash === */
+  #flash {
+    position: fixed; inset: 0; background: white; z-index: 100;
+    opacity: 0; pointer-events: none; transition: opacity 0.1s;
+  }
+  #flash.active { opacity: 1; }
+
+  /* === เวทีกลางจอ === */
+  #summon-stage {
+    position: relative; z-index: 10;
+    transition: transform 0.1s; /* สำหรับสั่นจอ */
+  }
+  .shaking {
+    animation: shake 0.1s infinite;
+  }
+  @keyframes shake {
+    0% { transform: translate(2px, 2px); }
+    25% { transform: translate(-2px, -1px); }
+    50% { transform: translate(-1px, 2px); }
+    75% { transform: translate(2px, -2px); }
+    100% { transform: translate(-2px, 1px); }
   }
 
-  #popup.show {
-    transform: translateX(-50%) scale(1);
-    animation: sparkle 1s infinite;
+  /* === 4. วงมนตร์ขนาดใหญ่ === */
+  .magic-circle {
+    width: min(80vw, 320px); /* ใหญ่ขึ้น 80% ของจอ */
+    height: min(80vw, 320px);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.15));
+  }
+  
+  /* วงแหวนเพิ่มเติม */
+  .mc-ring {
+    position: absolute; border-radius: 50%;
+    border: 2px solid transparent;
+  }
+  .mc-ring:nth-child(1) { inset: -15px; border: 1px solid rgba(0, 229, 255, 0.2); box-shadow: 0 0 40px rgba(0, 229, 255, 0.05); }
+  .mc-ring:nth-child(2) { inset: 0; border-top-color: #00e5ff; border-bottom-color: #00e5ff; animation: spin 4s linear infinite; }
+  .mc-ring:nth-child(3) { inset: 25px; border-left-color: #2979ff; border-right-color: #2979ff; animation: spin-rev 3s linear infinite; }
+  .mc-ring:nth-child(4) { inset: 50px; border-top-color: #00e676; border-bottom-color: #00e676; border-style: dashed; animation: spin 5s linear infinite; }
+  
+  .mc-core {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,255,0.15), transparent);
+    box-shadow: 0 0 60px #00e5ff;
+    z-index: 2;
+    animation: corePulse 2.5s infinite;
   }
 
-  #popupEmoji {
-    font-size: 100px; /* ขยายใหญ่สำหรับ Pop-up */
+  .tap-text {
+    position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
+    font-size: 14px; color: #00e5ff; letter-spacing: 4px;
+    animation: fadeInOut 2.5s infinite;
+    text-shadow: 0 0 10px #00e5ff;
   }
 
-  #popup h2 {
-    font-size: 28px;
-    color: #e91e63;
-    margin: 15px 0 0;
-    text-shadow: 2px 2px 4px #000;
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  @keyframes spin-rev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+  @keyframes corePulse { 0%,100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
+  @keyframes fadeInOut { 0%,100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+
+  /* State: Casting */
+  .casting .mc-ring { animation-duration: 0.2s !important; border-color: #fff !important; box-shadow: 0 0 50px #fff; }
+  .casting .mc-core { animation: none; background: white; box-shadow: 0 0 150px #fff; transform: scale(1.5); }
+  .casting .tap-text { display: none; }
+
+  /* === การ์ดผลลัพธ์ === */
+  #result-card {
+    position: absolute; top: 50%; left: 50%;
+    width: 250px; height: 360px;
+    transform: translate(-50%, -50%) scale(0) rotateY(180deg);
+    transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 50; cursor: pointer; opacity: 0;
   }
+  #result-card.show {
+    transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+
+  .card-inner {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #0a0a0a, #111);
+    border-radius: 20px; border: 3px solid #333;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .card-inner::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: conic-gradient(transparent, rgba(255,255,255,0.1), transparent 30%);
+    animation: cardShine 3s linear infinite;
+  }
+  @keyframes cardShine { 100% { transform: rotate(360deg); } }
+
+  .card-visual {
+    width: 160px; height: 160px; border-radius: 15px; border: 2px solid #fff;
+    background: #000; display: flex; align-items: center; justify-content: center;
+    font-size: 100px; z-index: 2; margin-bottom: 20px;
+    box-shadow: 0 0 40px rgba(255,255,255,0.2);
+  }
+  .card-visual img { width: 100%; height: 100%; object-fit: cover; border-radius: 13px; }
+  
+  .card-info { z-index: 2; text-align: center; }
+  .card-rar { font-size: 14px; letter-spacing: 4px; font-weight: 300; opacity: 0.8; }
+  .card-nam { font-size: 28px; font-weight: 900; margin-top: 5px; text-shadow: 0 0 20px currentColor; }
+
+  /* ขอบการ์ดเรืองแสง */
+  #result-card.tier-5 .card-inner { border-color: #e91e63; box-shadow: 0 0 80px #e91e6388; }
+  #result-card.tier-6 .card-inner { border-color: #ffd700; box-shadow: 0 0 100px #ffd70088; }
+  #result-card.tier-4 .card-inner { border-color: #9c27b0; box-shadow: 0 0 50px #9c27b088; }
+
+  .reset-hint {
+    position: fixed; bottom: 40px; font-size: 12px; color: #666; z-index: 60;
+    animation: fadeInOut 2s infinite; display: none; letter-spacing: 2px;
+  }
+
+  /* อนุภาคระเบิด */
+  .burst-p { position: fixed; border-radius: 50%; pointer-events: none; z-index: 90; }
 </style>
 </head>
 <body>
 
-<h1>สุ่มสิ่งมีชีวิตในน้ำ</h1>
+<canvas id="dustCanvas"></canvas>
+<div class="vignette"></div>
+<div class="fog fog-top"></div>
+<div class="fog fog-bottom"></div>
 
-<div id="creatureBox">
-  <div id="creatureEmoji">❓</div>
-  <div id="creatureName">รอดูสิ่งมีชีวิต...</div>
+<div id="ambient-glow"></div>
+<div id="flash"></div>
+
+<div id="summon-stage">
+  <div class="magic-circle" id="magicCircle" onclick="startCast()">
+    <div class="mc-ring"></div>
+    <div class="mc-ring"></div>
+    <div class="mc-ring"></div>
+    <div class="mc-ring"></div>
+    <div class="mc-core"></div>
+    <div class="tap-text">TAP TO SUMMON</div>
+  </div>
+
+  <div id="result-card">
+    <div class="card-inner">
+      <div class="card-visual" id="cVisual">❓</div>
+      <div class="card-info">
+        <div class="card-rar" id="cRar">RARITY</div>
+        <div class="card-nam" id="cNam">NAME</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<button onclick="spawnCreature()">เปิดกล่องสุ่ม!</button>
+<div class="reset-hint" id="resetHint">TAP ANYWHERE TO CLOSE</div>
 
-<!-- Pop-up กลาง-ล่างจอ -->
-<div id="popup">
-  <div id="popupEmoji">❓</div>
-  <h2 id="popupName"></h2>
-</div>
-
-<!-- เสียง -->
-<audio id="soundCommon" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-<audio id="soundUncommon" src="https://www.soundjay.com/button/button-09.wav"></audio>
-<audio id="soundRare" src="https://www.soundjay.com/button/button-3.wav"></audio>
-<audio id="soundLegend" src="https://www.soundjay.com/button/button-4.wav"></audio>
-<audio id="soundSSS" src="https://www.soundjay.com/button/button-10.wav"></audio>
+<!-- เสียงแบบสั้นกระชับ -->
+<audio id="sndCast" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3"></audio>
+<audio id="sndReveal" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
+<audio id="sndSSS" src="https://assets.mixkit.co/sfx/preview/mixkit-epic-orchestra-rise-389.mp3"></audio>
 
 <script>
-  const creatures = [
-    { name: "ปลาเล็ก", rarity: "ธรรมดา", chance: 45, emoji: "🐟", color: "#4caf50", sound: "soundCommon" },
-    { name: "ปลาสีสันสดใส", rarity: "ไม่ธรรมดา", chance: 25, emoji: "🐠", color: "#2196f3", sound: "soundUncommon" },
-    { name: "ปลาฉลาม", rarity: "หายาก", chance: 15, emoji: "🦈", color: "#ff9800", sound: "soundRare" },
-    { name: "ปลาวาฬ", rarity: "ตำนาน", chance: 14, emoji: "🐋", color: "#9c27b0", sound: "soundLegend" },
-    { name: "กุ้ง", rarity: "SSS", chance: 1, emoji: "🦐", color: "#e91e63", sound: "soundSSS" }
+  const C = [
+    { name:"ปลาเล็ก", rar:"ธรรมดา", ch:44, em:"🐟", col:"#4caf50", tier:1 },
+    { name:"ปลาสีสด", rar:"ไม่ธรรมดา", ch:25, em:"🐠", col:"#2196f3", tier:2 },
+    { name:"ปลาฉลาม", rar:"หายาก", ch:15, em:"🦈", col:"#ff9800", tier:3 },
+    { name:"ปลาวาฬ", rar:"ตำนาน", ch:14, em:"🐋", col:"#9c27b0", tier:4 },
+    { name:"กุ้งมหาศจรรย์", rar:"SSS", ch:2, em:"🦐", col:"#e91e63", tier:5 },
+    { name:"โม ลึกลับ", rar:"ซีเคร็ท", ch:1, em:"https://photos.fife.usercontent.google.com/pw/AP1GczMsGGv2cyulhdniQiUUKnIm9iPTudEfEzykeSQB4hZYTq0YOjeCwMXV=w1618-h911-s-no-gm?authuser=0", col:"#ffd700", tier:6 }
   ];
 
-  function spawnCreature() {
-    const box = document.getElementById("creatureBox");
-    const emoji = document.getElementById("creatureEmoji");
-    const name = document.getElementById("creatureName");
+  let isBusy = false;
 
-    box.style.transform = "scale(1.1)";
-    emoji.style.transform = "rotate(15deg)";
-    name.style.transform = "scale(1.2)";
+  // --- ระบบฝุ่นลอย (Dust Particles) เพื่อเติมพื้นที่ ---
+  const canvas = document.getElementById('dustCanvas');
+  const ctx = canvas.getContext('2d');
+  let dust = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initDust();
+  }
+
+  function initDust() {
+    dust = [];
+    // สร้างฝุ่น 80 เม็ด สีจางมากๆ
+    for(let i=0; i<80; i++) {
+      dust.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.5,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: -Math.random() * 0.3 - 0.1, // ลอยขึ้นด้านบนเรื่อยๆ
+        o: Math.random() * 0.4 + 0.1
+      });
+    }
+  }
+
+  function drawDust() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#4dd0e1'; // สีฟ้าอมเขียว
+    
+    dust.forEach(p => {
+      ctx.globalAlpha = p.o;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      p.x += p.dx;
+      p.y += p.dy;
+
+      // ถ้าลอยหายไปด้านบน ให้รีเซ็ตมาด้านล่างใหม่
+      if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+      if (p.x < -10 || p.x > canvas.width + 10) p.x = Math.random() * canvas.width;
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(drawDust);
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  drawDust();
+  // --------------------------------
+
+  function getR() {
+    let r = Math.random()*100, t=0;
+    for(let c of C) { t += c.ch; if(r <= t) return c; }
+    return C[0];
+  }
+
+  function setV(el, data) {
+    el.innerHTML = data.startsWith("http") ? `<img src="${data}">` : data;
+  }
+
+  function startCast() {
+    if(isBusy) return;
+    isBusy = true;
+    
+    const stage = document.getElementById("summon-stage");
+    const circle = document.getElementById("magicCircle");
+    const ambient = document.getElementById("ambient-glow");
+    
+    ambient.className = '';
+    
+    document.getElementById("sndCast").currentTime = 0; 
+    document.getElementById("sndCast").play().catch(e=>{});
+    
+    // เข้าสู่โหมด Casting + สั่นจอ
+    circle.classList.add("casting");
+    stage.classList.add("shaking");
+    if(navigator.vibrate) navigator.vibrate(50);
+
+    setTimeout(() => {
+      // ดับการสั่น
+      stage.classList.remove("shaking");
+      
+      // แฟลชขาว
+      document.getElementById("flash").classList.add("active");
+      setTimeout(() => document.getElementById("flash").classList.remove("active"), 150);
+      
+      let res = getR();
+      
+      setTimeout(() => {
+        // ย่อวงมนตร์หาย
+        circle.style.opacity = '0';
+        circle.style.transform = 'scale(0)';
+        
+        // เซ็ตการ์ด
+        const card = document.getElementById("result-card");
+        setV(document.getElementById("cVisual"), res.em);
+        document.getElementById("cRar").innerText = res.rar;
+        document.getElementById("cRar").style.color = res.col;
+        document.getElementById("cNam").innerText = res.name;
+        document.getElementById("cNam").style.color = res.col;
+        
+        card.className = `tier-${res.tier}`;
+        
+        // เปลี่ยนแสงรอบจอ
+        if(res.tier === 6) ambient.className = 'secret';
+        else if(res.tier === 5) ambient.className = 'ssr';
+        else if(res.tier === 4) ambient.className = 'legend';
+
+        setTimeout(() => {
+          card.classList.add("show");
+          document.getElementById("resetHint").style.display = "block";
+          
+          if(res.tier >= 5) {
+            document.getElementById("sndSSS").play().catch(e=>{});
+            if(navigator.vibrate) navigator.vibrate([200, 100, 400]);
+            createBurst(res.col, 60); // ระเบิดเยอะขึ้น
+          } else {
+            document.getElementById("sndReveal").play().catch(e=>{});
+          }
+        }, 300);
+
+      }, 200);
+
+    }, 1500);
+  }
+
+  // รีเซ็ตเมื่อกด
+  document.body.addEventListener('click', (e) => {
+    if(!isBusy) return;
+    if(!document.getElementById("result-card").classList.contains("show")) return;
+    if(e.target.closest('.magic-circle')) return;
+    
+    resetStage();
+  });
+
+  function resetStage() {
+    const circle = document.getElementById("magicCircle");
+    const card = document.getElementById("result-card");
+    const ambient = document.getElementById("ambient-glow");
+    
+    card.classList.remove("show");
+    document.getElementById("resetHint").style.display = "none";
     
     setTimeout(() => {
-      box.style.transform = "scale(1)";
-      emoji.style.transform = "rotate(0deg)";
-      name.style.transform = "scale(1)";
+      ambient.className = '';
+      circle.classList.remove("casting");
+      circle.style.opacity = '1';
+      circle.style.transform = 'scale(1)';
+      isBusy = false;
     }, 500);
+  }
 
-    const rand = Math.random() * 100;
-    let total = 0;
-    for (let c of creatures) {
-      total += c.chance;
-      if (rand <= total) {
-        name.innerText = `${c.name} (${c.rarity})`;
-        name.style.color = c.color;
-        emoji.innerText = c.emoji;
-
-        const sound = document.getElementById(c.sound);
-        if (sound) { sound.currentTime = 0; sound.play(); }
-
-        // ถ้าเป็น SSS แสดง Pop-up กลาง-ล่าง
-        if(c.rarity === "SSS"){
-          const popup = document.getElementById("popup");
-          document.getElementById("popupEmoji").innerText = c.emoji;
-          document.getElementById("popupName").innerText = `${c.name} (${c.rarity})`;
-          popup.classList.add("show");
-          setTimeout(() => { popup.classList.remove("show"); }, 3000);
-        }
-
-        return;
-      }
+  function createBurst(color, count) {
+    let cx = window.innerWidth/2, cy = window.innerHeight/2;
+    for(let i=0; i<count; i++) {
+      let p = document.createElement("div");
+      p.className = "burst-p";
+      p.style.background = color;
+      p.style.width = (Math.random()*10+4)+"px";
+      p.style.height = p.style.width;
+      p.style.left = cx+"px"; p.style.top = cy+"px";
+      p.style.boxShadow = `0 0 15px ${color}`;
+      
+      let angle = (Math.PI * 2 / count) * i;
+      let dist = Math.random()*300 + 100;
+      let tx = Math.cos(angle)*dist;
+      let ty = Math.sin(angle)*dist;
+      
+      p.style.transition = `all ${Math.random()*0.6+0.6}s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+      document.body.appendChild(p);
+      
+      p.offsetWidth; // Trigger
+      p.style.transform = `translate(${tx}px, ${ty}px)`;
+      p.style.opacity = '0';
+      
+      setTimeout(() => p.remove(), 1200);
     }
   }
 </script>
-
 </body>
 </html>
