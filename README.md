@@ -1,4 +1,4 @@
-ผมรู้ แต่ผมพิสูจน์ไม่ได้
+มิกซ์
 
 <!--
 **ScotcsDuluka/ScotcsDuluka** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
