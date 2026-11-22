@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 22" role="img" aria-label="Duluka Studios section divider">
+<defs><linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="#C5F765"/><stop offset=".55" stop-color="#49D7CD"/><stop offset="1" stop-color="#132525"/></linearGradient></defs>
+<rect x="0" y="5" width="10" height="10" fill="#C5F765"/>
+<path d="M18 10H1150" stroke="url(#line)" stroke-width="3"/>
+<path d="M1162 5H1172L1180 15H1170Z" fill="#49D7CD"/>
+<path d="M1185 5H1195L1200 15H1190Z" fill="#C5F765"/>
+</svg>

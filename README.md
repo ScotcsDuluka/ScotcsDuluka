@@ -1,290 +1,241 @@
 <!--
-  DULUKA STUDIOS™ // GITHUB PROFILE
-  Brand palette: carbon #0B1212 · acid lime #C5F765 · turquoise #49D7CD
-  Profile README for github.com/ScotcsDuluka
+  DULUKA STUDIOS™ / STUDIO EDITION
+  github.com/ScotcsDuluka
+  Visual identity: charcoal #0B1212 | lime #C5F765 | turquoise #49D7CD
+  Studio hero uses the ORIGINAL Logo_Ap.png supplied by the author.
+  All showcased project links below have been checked against public repositories.
 -->
 
 <div align="center">
 
-<img src="./assets/duluka-profile-banner.svg" alt="SCOTCS DULUKA — Build what you wish existed. Duluka Studios." width="100%" />
-
-<br />
-
 <a href="https://duluka-studios.pages.dev/">
-  <img alt="Enter Duluka Studios" src="https://img.shields.io/badge/ENTER_THE_STUDIO-DULUKA_STUDIOS™-C5F765?style=for-the-badge&labelColor=0B1212&logo=cloudflarepages&logoColor=white" />
-</a>
-<a href="https://github.com/ScotcsDuluka?tab=repositories">
-  <img alt="Explore the repositories" src="https://img.shields.io/badge/EXPLORE-THE_PROJECTS-49D7CD?style=for-the-badge&labelColor=0B1212&logo=github&logoColor=white" />
-</a>
-<a href="https://discord.gg/v5qUGVD3jZ">
-  <img alt="Join the Discord" src="https://img.shields.io/badge/JOIN-THE_COMMUNITY-8B8CFA?style=for-the-badge&labelColor=0B1212&logo=discord&logoColor=white" />
+  <img src="./assets/duluka-studio-hero.png" width="100%" alt="ScotcsDuluka — Duluka Studios. Charcoal studio banner with the authentic black D logo and lime and turquoise accents." />
 </a>
 
 <br /><br />
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=19&duration=3000&pause=1100&color=C5F765&center=true&vCenter=true&width=820&height=48&lines=DREAM+IT.+BUILD+IT.+MAKE+IT+REAL.;IF+IT+DOESN%27T+EXIST%2C+BUILD+IT.;TRY+IT.+BREAK+IT.+FIX+IT.;ONE+DEVELOPER.+INFINITE+POSSIBILITIES." alt="Animated developer manifesto" />
+<a href="https://duluka-studios.pages.dev/"><img alt="Visit Duluka Studios" src="https://img.shields.io/badge/ENTER_THE_STUDIO-DULUKA_STUDIOS-C5F765?style=for-the-badge&labelColor=101818&logo=cloudflarepages&logoColor=white" /></a>
+<a href="https://github.com/ScotcsDuluka?tab=repositories"><img alt="Explore public repositories" src="https://img.shields.io/badge/EXPLORE-PROJECTS-49D7CD?style=for-the-badge&labelColor=101818&logo=github&logoColor=white" /></a>
+<a href="https://discord.gg/v5qUGVD3jZ"><img alt="Join the Discord community" src="https://img.shields.io/badge/JOIN-THE_COMMUNITY-8B8CFA?style=for-the-badge&labelColor=101818&logo=discord&logoColor=white" /></a>
 
-**INDEPENDENT DEVELOPER** &nbsp; • &nbsp; **WINDOWS ENGINEERING** &nbsp; • &nbsp; **WEB EXPERIENCES** &nbsp; • &nbsp; **CREATIVE TECHNOLOGY**
+<br /><br />
 
-<img src="https://img.shields.io/badge/LOCATION-THAILAND-152121?style=flat-square&labelColor=0B1212&color=49D7CD" alt="Thailand" />
-<img src="https://img.shields.io/badge/BUILD_MODE-ALWAYS_LEARNING-152121?style=flat-square&labelColor=0B1212&color=C5F765" alt="Always learning" />
-<img src="https://komarev.com/ghpvc/?username=ScotcsDuluka&style=flat-square&color=49D7CD&label=PROFILE+VIEWS" alt="Profile views" />
+**DESIGN. ENGINEER. EXPERIMENT.**
+
+*Independent developer · Windows systems · Web experiences · Creative technology*
+
+**DREAM IT. BUILD IT. MAKE IT REAL.**
 
 </div>
 
----
+<img src="./assets/studio-divider.svg" width="100%" alt="" />
 
-### <img src="https://img.shields.io/badge/00-INITIALIZE-C5F765?style=flat-square&labelColor=0B1212" alt="00 / Initialize" /> &nbsp; THE PERSON BEHIND THE CODE
+## 01 — THE STUDIO
+
+Hey, I'm **ScotcsDuluka**, the independent developer behind **Duluka Studios™**, based in Thailand.
+
+I build the software and interfaces I wish existed: a screen-capture platform, desktop experiences on the web, Android customization, and small tools that begin as curiosities. I care about the parts people can *see* — and the architecture that makes them work.
 
 > **“อยากให้มีอะไรสักอย่าง ก็ลองสร้างมันขึ้นมาเอง”**
 >
-> **If you wish something existed, try building it yourself.**
+> *If you wish something existed, try building it yourself.*
 
-Hey, I'm **ScotcsDuluka**, the person behind **Duluka Studios™**.
-
-I make things because I want to understand how they work — and how they *could* work better. Some projects start with a missing feature. Others begin with a strange idea at 2 AM. Most become experiments in **systems, design, performance, interfaces, and the joy of figuring things out**.
-
-I build across **Windows desktop software, web applications, Android/HyperOS customization, Minecraft projects, and media tooling**. Different platforms, same mindset: **curiosity → prototype → test → rebuild → improve**.
-
-§§§text
-scotcs@duluka:~$ whoami
-> Independent developer
-> Builder of software, interfaces & experiments
-> Location: Thailand
-> Studio: Duluka Studios™
-
-scotcs@duluka:~$ cat philosophy.txt
-DREAM IT.  BUILD IT.  MAKE IT REAL.
-§§§
-
-<div align="center">
-
-**NO MAGIC. JUST IDEAS, CODE, A LOT OF DEBUGGING — AND THE WILL TO KEEP BUILDING.**
-
-</div>
-
----
-
-### <img src="https://img.shields.io/badge/01-FLAGSHIP_PROJECTS-49D7CD?style=flat-square&labelColor=0B1212" alt="01 / Flagship projects" /> &nbsp; BUILT IN THE WORKSHOP
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-#### 🎬 [SHADOWPLAY NEXT](https://github.com/ScotcsDuluka/ShadowPlay-NEXT)
-
-![Windows](https://img.shields.io/badge/WINDOWS-111A1A?style=flat-square&logo=windows&logoColor=49D7CD)
-![Native](https://img.shields.io/badge/NATIVE_SYSTEMS-111A1A?style=flat-square&logo=cplusplus&logoColor=C5F765)
-![Experimental](https://img.shields.io/badge/STATUS-IN_DEVELOPMENT-C5F765?style=flat-square&labelColor=111A1A)
-
-**Capture. Overlay. Architecture. Reimagined.**
-
-An independent rebuild exploring screen capture, overlay systems, native hosts, CEF-based interfaces, build orchestration, and the space between Windows components.
-
-**Focus:** architecture, reliability, integration, and real-world testing.
-
-> ⚠️ NEXT CBT1 is development work, **not a public release**. Unofficial project; not affiliated with NVIDIA.
-
-[**VIEW THE ENGINEERING PROJECT ↗**](https://github.com/ScotcsDuluka/ShadowPlay-NEXT)
-
-</td>
-<td width="50%" valign="top">
-
-#### ⚡ [DULUKA STUDIOS™](https://duluka-studios.pages.dev/)
-
-![Next.js](https://img.shields.io/badge/NEXT.JS-111A1A?style=flat-square&logo=nextdotjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TYPESCRIPT-111A1A?style=flat-square&logo=typescript&logoColor=49D7CD)
-![Web](https://img.shields.io/badge/STATUS-STUDIO_WEBSITE-C5F765?style=flat-square&labelColor=111A1A)
-
-**A home for ideas that refuse to stay ideas.**
-
-The central home for software, experiments, web design, and projects from the Duluka workshop. Built to connect the work, the process, and the people curious enough to explore it.
-
-**Focus:** interface details, storytelling, motion, and project discovery.
-
-[**VISIT THE STUDIO ↗**](https://duluka-studios.pages.dev/)
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-#### 🖥️ [WINDOWS 10 DESKTOP — WEB EDITION](https://github.com/ScotcsDuluka/Windows-10-Desktop-Web)
-
-![Next.js](https://img.shields.io/badge/NEXT.JS-111A1A?style=flat-square&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/REACT-111A1A?style=flat-square&logo=react&logoColor=49D7CD)
-
-**The desktop experience — inside a browser.**
-
-An experiment in recreating desktop-like interactions on the web, including a taskbar, window management, Settings, Notepad, and Calculator.
-
-**Focus:** interaction design, windows, components, and visual fidelity.
-
-[**EXPLORE THE EXPERIENCE ↗**](https://github.com/ScotcsDuluka/Windows-10-Desktop-Web)
-
-</td>
-<td width="50%" valign="top">
-
-#### 📱 [ALWAYS-ON-DISPLAY MODS](https://github.com/ScotcsDuluka/Always-On-Display-Mods)
-
-![Android](https://img.shields.io/badge/ANDROID-111A1A?style=flat-square&logo=android&logoColor=C5F765)
-![HyperOS](https://img.shields.io/badge/HYPEROS-111A1A?style=flat-square&logo=xiaomi&logoColor=49D7CD)
-
-**Customize the details. Change the feeling.**
-
-Experiments with Android / HyperOS Always-On Display customization, language support, and visual enhancements.
-
-**Note:** Requires compatibility checks and, for supported modules, a rooted device. Review repository instructions and risks before installing.
-
-[**EXPLORE THE MODS ↗**](https://github.com/ScotcsDuluka/Always-On-Display-Mods)
-
-</td>
-</tr>
-</table>
+**My approach:** dream up an idea → build a prototype → test the reality → improve the details → keep adapting.
 
 <details>
-<summary><strong>◢ OPEN THE SIDE QUESTS</strong> — more experiments from the workshop</summary>
+<summary><strong>🇹🇭 เกี่ยวกับ Duluka Studios (ภาษาไทย)</strong></summary>
 
 <br />
 
-| PROJECT | WHAT'S INSIDE |
-|:---|:---|
-| [🎵 Lyrics-TTML](https://github.com/ScotcsDuluka/Lyrics-TTML) | Timed-text lyrics, synchronization, and media experiments |
-| [⛏️ MCDMods-Project-Plus](https://github.com/ScotcsDuluka/MCDMods-Project-Plus) | Minecraft-related project work |
-| [📲 Web-HyperOS-Launcher](https://github.com/ScotcsDuluka/Web-HyperOS-Launcher) | HyperOS-inspired launcher and interface exploration |
-| [🌐 Web-Custom](https://github.com/ScotcsDuluka/Web-Custom) | Web experiments and custom interfaces |
-| [🧪 Project](https://github.com/ScotcsDuluka/Project) | The wider project workspace |
+Duluka Studios™ คือพื้นที่รวมผลงานและการทดลองด้านซอฟต์แวร์ของ ScotcsDuluka ตั้งแต่โปรแกรมบน Windows งานออกแบบเว็บ การปรับแต่ง Android/HyperOS ไปจนถึงเครื่องมือและโปรเจกต์ที่เกิดจากความอยากรู้อยากลอง
 
-*Experiments have different levels of completeness and support. A repository isn't automatically a finished product.*
+**แนวคิดหลัก:** ถ้าอยากให้มีสิ่งนั้นอยู่ ก็ลองลงมือสร้างมันขึ้นมาเอง
 
 </details>
 
----
+<img src="./assets/studio-divider.svg" width="100%" alt="" />
 
-### <img src="https://img.shields.io/badge/02-TECH_ARSENAL-C5F765?style=flat-square&labelColor=0B1212" alt="02 / Tech arsenal" /> &nbsp; TOOLS, LANGUAGES & PLATFORMS
+## 02 — SELECTED WORK
 
-<div align="center">
+*Real projects. Real repositories. Different stages of development.*
 
-**◢ LANGUAGES**
+### 01 / [DULUKA STUDIOS™](https://duluka-studios.pages.dev/)
 
-<img src="https://img.shields.io/badge/C++-131D1D?style=for-the-badge&logo=cplusplus&logoColor=49D7CD" alt="C++" />
-<img src="https://img.shields.io/badge/C%23-131D1D?style=for-the-badge&logo=dotnet&logoColor=C5F765" alt="C#" />
-<img src="https://img.shields.io/badge/VB.NET-131D1D?style=for-the-badge&logo=dotnet&logoColor=A6B7F9" alt="VB.NET" />
-<img src="https://img.shields.io/badge/TypeScript-131D1D?style=for-the-badge&logo=typescript&logoColor=49D7CD" alt="TypeScript" />
-<img src="https://img.shields.io/badge/JavaScript-131D1D?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="JavaScript" />
-<img src="https://img.shields.io/badge/HTML5-131D1D?style=for-the-badge&logo=html5&logoColor=E68E6D" alt="HTML5" />
-<img src="https://img.shields.io/badge/CSS3-131D1D?style=for-the-badge&logo=css3&logoColor=49D7CD" alt="CSS3" />
+<a href="https://duluka-studios.pages.dev/">
+  <img src="./assets/duluka-studios-live.webp" width="100%" alt="Actual home page of Duluka Studios showing a cream grid background, large DULUKA STUDIOS typography, lime navigation and rotating logo badge." />
+</a>
 
-**◢ FRAMEWORKS & UI**
+<sub>▲ Actual public homepage captured from the live site in November 2026 — not a mockup.</sub>
 
-<img src="https://img.shields.io/badge/.NET-131D1D?style=for-the-badge&logo=dotnet&logoColor=B69BF4" alt=".NET" />
-<img src="https://img.shields.io/badge/Next.js-131D1D?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
-<img src="https://img.shields.io/badge/React-131D1D?style=for-the-badge&logo=react&logoColor=49D7CD" alt="React" />
-<img src="https://img.shields.io/badge/Tailwind_CSS-131D1D?style=for-the-badge&logo=tailwindcss&logoColor=C5F765" alt="Tailwind CSS" />
+**A home for ideas that refuse to stay ideas.**
 
-**◢ SYSTEMS, MEDIA & WORKFLOW**
+A project portfolio and experiment hub built with **Next.js, TypeScript and React**. The site brings together desktop systems, interfaces, mods, and the work in progress behind them.
 
-<img src="https://img.shields.io/badge/Windows-131D1D?style=for-the-badge&logo=windows&logoColor=49D7CD" alt="Windows" />
-<img src="https://img.shields.io/badge/Android_/_HyperOS-131D1D?style=for-the-badge&logo=android&logoColor=C5F765" alt="Android / HyperOS" />
-<img src="https://img.shields.io/badge/FFmpeg-131D1D?style=for-the-badge&logo=ffmpeg&logoColor=C5F765" alt="FFmpeg" />
-<img src="https://img.shields.io/badge/Git-131D1D?style=for-the-badge&logo=git&logoColor=F17760" alt="Git" />
-<img src="https://img.shields.io/badge/GitHub_Actions-131D1D?style=for-the-badge&logo=githubactions&logoColor=49D7CD" alt="GitHub Actions" />
-<img src="https://img.shields.io/badge/Cloudflare_Pages-131D1D?style=for-the-badge&logo=cloudflarepages&logoColor=F3BD79" alt="Cloudflare Pages" />
+![Website](https://img.shields.io/badge/WEB-LIVE-C5F765?style=flat-square&labelColor=101818)
+![Stack](https://img.shields.io/badge/NEXT.JS_/_TYPESCRIPT-49D7CD?style=flat-square&labelColor=101818)
 
-<sub>Tools reflect the different projects I explore — not a claim that every tool is used in every repository.</sub>
-
-</div>
+**[OPEN THE STUDIO ↗](https://duluka-studios.pages.dev/)**
 
 ---
 
-### <img src="https://img.shields.io/badge/03-ENGINEERING_MINDSET-49D7CD?style=flat-square&labelColor=0B1212" alt="03 / Engineering mindset" /> &nbsp; THE DULUKA WAY
+### 02 / [SHADOWPLAY NEXT](https://github.com/ScotcsDuluka/ShadowPlay-NEXT)
 
-| SIGNAL | PRINCIPLE | WHAT IT MEANS |
-|:--:|:---|:---|
-| `01` | **DREAM UP** | Imagine the experience before worrying about the limitations. |
-| `02` | **BUILD TO LEARN** | Turn the idea into something that can be tested. |
-| `03` | **BREAK THE ASSUMPTIONS** | Debug honestly. Question the implementation, not just the error. |
-| `04` | **DESIGN WITH INTENT** | Make motion, performance, and usability part of the architecture. |
-| `05` | **KEEP ADAPTING** | Refactor, iterate, and make the next version better. |
+**A Windows capture and overlay platform being rebuilt from the inside out.**
 
-<div align="center">
+An independent engineering project exploring a native host, recording pipeline, overlay architecture, CEF-based UI components, and cross-process integration.
 
-### DREAM IT. BUILD IT. MAKE IT REAL.
+![Stage](https://img.shields.io/badge/STATUS-ACTIVE_REBUILD-C5F765?style=flat-square&labelColor=101818)
+![Platform](https://img.shields.io/badge/PLATFORM-WINDOWS_x64-49D7CD?style=flat-square&labelColor=101818)
+![Channel](https://img.shields.io/badge/CHANNEL-NEXT_CBT1_PREPARATION-98AAAB?style=flat-square&labelColor=101818)
 
-*Curiosity is the starting point. The rest is engineering.*
+**Current reality:** NEXT CBT1 is under development, **not a public release**. The older OBT3 generation is distinct from NEXT. This is an unofficial independent project, not affiliated with NVIDIA.
 
-</div>
-
----
-
-### <img src="https://img.shields.io/badge/04-LIVE_TELEMETRY-C5F765?style=flat-square&labelColor=0B1212" alt="04 / Live telemetry" /> &nbsp; GITHUB PULSE
-
-<div align="center">
-
-<a href="https://github.com/ScotcsDuluka?tab=followers">
-  <img src="https://img.shields.io/github/followers/ScotcsDuluka?style=for-the-badge&logo=github&labelColor=111A1A&color=C5F765&label=FOLLOWERS" alt="GitHub followers" />
-</a>
-<a href="https://github.com/ScotcsDuluka/ShadowPlay-NEXT/commits/Stable">
-  <img src="https://img.shields.io/github/last-commit/ScotcsDuluka/ShadowPlay-NEXT/Stable?style=for-the-badge&logo=git&labelColor=111A1A&color=49D7CD&label=SHADOWPLAY%20LAST%20COMMIT" alt="ShadowPlay NEXT latest commit" />
-</a>
-<a href="https://github.com/ScotcsDuluka?tab=repositories">
-  <img src="https://img.shields.io/badge/REPOSITORIES-EXPLORE_ALL-8B8CFA?style=for-the-badge&labelColor=111A1A&logo=github" alt="Explore repositories" />
-</a>
-
-<br /><br />
-
-<img height="175" src="https://github-readme-stats.vercel.app/api?username=ScotcsDuluka&show_icons=true&hide_border=true&bg_color=0B1212&title_color=C5F765&text_color=D8E8E3&icon_color=49D7CD&ring_color=C5F765&include_all_commits=true" alt="GitHub stats" />
-<img height="175" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ScotcsDuluka&layout=compact&hide_border=true&bg_color=0B1212&title_color=C5F765&text_color=D8E8E3&langs_count=8" alt="Most represented repository languages" />
+<details>
+<summary><strong>VIEW A VERIFIED PROJECT IMAGE</strong> · legacy overlay screenshot from the repository</summary>
 
 <br />
 
-<sub>Stats are generated by third-party services and may load slowly or become temporarily unavailable. Language statistics reflect public repository code, not skill rankings.</sub>
+<img src="https://raw.githubusercontent.com/ScotcsDuluka/ShadowPlay-NEXT/Stable/Web%20Github/ShadowPlay%20NEXT/Assets/overlay.png" width="100%" alt="Legacy ShadowPlay overlay visual stored in the project repository. This is not a verified screenshot of NEXT CBT1." />
 
-</div>
+<sub>Archive image stored in the public repository. It illustrates a legacy interface, not a completed NEXT CBT1 build.</sub>
 
----
+</details>
 
-### <img src="https://img.shields.io/badge/05-CURRENT_MISSION-49D7CD?style=flat-square&labelColor=0B1212" alt="05 / Current mission" /> &nbsp; WHAT'S ON THE WORKBENCH
-
-```text
-[ BUILD_01 ]  SHADOWPLAY NEXT
-              Capture pipeline / native integration / overlay / build tooling
-
-[ BUILD_02 ]  DULUKA STUDIOS
-              Portfolio / UX / interactive frontend / project discovery
-
-[ LAB_03   ]  CREATIVE EXPERIMENTS
-              HyperOS / Minecraft / timed lyrics / desktop-like web UI
-```
-
-**Development notes:** Some repositories contain prototypes, experiments, incomplete implementations, or device-specific code. Check each project's documentation, requirements, releases, and license before using or redistributing anything.
+**[EXPLORE THE REBUILD ↗](https://github.com/ScotcsDuluka/ShadowPlay-NEXT)** · [Development history](https://github.com/ScotcsDuluka/ShadowPlay-NEXT/commits/Stable)
 
 ---
 
-### <img src="https://img.shields.io/badge/06-ESTABLISH_CONNECTION-C5F765?style=flat-square&labelColor=0B1212" alt="06 / Establish connection" /> &nbsp; FIND ME IN THE NETWORK
+### 03 / [WINDOWS 10 DESKTOP — WEB EDITION](https://github.com/ScotcsDuluka/Windows-10-Desktop-Web)
 
-<div align="center">
+**A desktop-style interface that runs inside the browser.**
 
-**GOT AN IDEA? EXPLORE THE WORKSHOP.**
+A Next.js / TypeScript experiment with a **taskbar, draggable app windows, Settings, Notepad, and Calculator**. Built to explore desktop interaction patterns in a web environment.
 
-<a href="https://duluka-studios.pages.dev/"><img src="https://img.shields.io/badge/WEBSITE-DULUKA_STUDIOS-C5F765?style=for-the-badge&logo=cloudflarepages&logoColor=white&labelColor=101818" alt="Website" /></a>
-<a href="https://github.com/ScotcsDuluka?tab=repositories"><img src="https://img.shields.io/badge/CODE-GITHUB_REPOS-49D7CD?style=for-the-badge&logo=github&logoColor=white&labelColor=101818" alt="GitHub Repositories" /></a>
-<a href="https://discord.gg/v5qUGVD3jZ"><img src="https://img.shields.io/badge/COMMUNITY-DISCORD-8B8CFA?style=for-the-badge&logo=discord&logoColor=white&labelColor=101818" alt="Discord" /></a>
+![Type](https://img.shields.io/badge/TYPE-WEB_DESKTOP-49D7CD?style=flat-square&labelColor=101818)
+![Stack](https://img.shields.io/badge/NEXT.JS_/_TAILWIND-C5F765?style=flat-square&labelColor=101818)
 
-<br /><br />
+**[EXPLORE THE PROJECT ↗](https://github.com/ScotcsDuluka/Windows-10-Desktop-Web)**
 
 ---
 
-### DULUKA STUDIOS™
+### 04 / [ALWAYS-ON-DISPLAY MODS](https://github.com/ScotcsDuluka/Always-On-Display-Mods)
 
-**INDEPENDENT BY DESIGN. CURIOUS BY DEFAULT.**
+**Making the small details on Android feel personal.**
 
-<sub>DESIGNED WITH CURIOSITY · BUILT THROUGH ITERATION · MADE IN THAILAND 🇹🇭</sub>
+Experimental HyperOS Always-On Display customization with language and visual modifications. Requires a **compatible rooted device with Magisk**; back up the original AOD package and read the device warnings before installing.
+
+![Platform](https://img.shields.io/badge/PLATFORM-ANDROID_/_HYPEROS-49D7CD?style=flat-square&labelColor=101818)
+![Type](https://img.shields.io/badge/TYPE-EXPERIMENTAL_MOD-C5F765?style=flat-square&labelColor=101818)
+
+**[EXPLORE THE MODULE ↗](https://github.com/ScotcsDuluka/Always-On-Display-Mods)**
+
+<details>
+<summary><strong>+ THE REST OF THE WORKSHOP</strong> · music, mods, launchers, interfaces</summary>
 
 <br />
 
-<sub>© Duluka Studios™ · Made to explore, learn, and build.</sub>
+- **[Lyrics-TTML](https://github.com/ScotcsDuluka/Lyrics-TTML)** — timed lyrics and synchronization experiments.
+- **[MCDMods-Project-Plus](https://github.com/ScotcsDuluka/MCDMods-Project-Plus)** — Minecraft-related development.
+- **[Web-HyperOS-Launcher](https://github.com/ScotcsDuluka/Web-HyperOS-Launcher)** — launcher and mobile-interface exploration.
+- **[Web-Custom](https://github.com/ScotcsDuluka/Web-Custom)** — custom web experiments.
+
+*All links above lead to public repositories. Availability and project maturity vary; see each repository for up-to-date requirements and releases.*
+
+</details>
+
+<img src="./assets/studio-divider.svg" width="100%" alt="" />
+
+## 03 — TOOLS OF THE TRADE
+
+<div align="center">
+
+**LANGUAGES**
+
+<img alt="C++" src="https://img.shields.io/badge/C++-101818?style=flat-square&logo=cplusplus&logoColor=49D7CD" />
+<img alt="C#" src="https://img.shields.io/badge/C%23-101818?style=flat-square&logo=dotnet&logoColor=C5F765" />
+<img alt="VB.NET" src="https://img.shields.io/badge/VB.NET-101818?style=flat-square&logo=dotnet&logoColor=9BB5F7" />
+<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-101818?style=flat-square&logo=typescript&logoColor=49D7CD" />
+<img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-101818?style=flat-square&logo=javascript&logoColor=F7DF1E" />
+<img alt="HTML5" src="https://img.shields.io/badge/HTML5-101818?style=flat-square&logo=html5&logoColor=EA9272" />
+<img alt="CSS3" src="https://img.shields.io/badge/CSS3-101818?style=flat-square&logo=css3&logoColor=49D7CD" />
+
+**FRAMEWORKS & INTERFACES**
+
+<img alt=".NET" src="https://img.shields.io/badge/.NET-101818?style=flat-square&logo=dotnet&logoColor=BBA0F0" />
+<img alt="Next.js" src="https://img.shields.io/badge/Next.js-101818?style=flat-square&logo=nextdotjs&logoColor=white" />
+<img alt="React" src="https://img.shields.io/badge/React-101818?style=flat-square&logo=react&logoColor=49D7CD" />
+<img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-101818?style=flat-square&logo=tailwindcss&logoColor=C5F765" />
+
+**PLATFORMS & WORKFLOW**
+
+<img alt="Windows" src="https://img.shields.io/badge/Windows-101818?style=flat-square&logo=windows&logoColor=49D7CD" />
+<img alt="Android / HyperOS" src="https://img.shields.io/badge/Android_/_HyperOS-101818?style=flat-square&logo=android&logoColor=C5F765" />
+<img alt="FFmpeg" src="https://img.shields.io/badge/FFmpeg-101818?style=flat-square&logo=ffmpeg&logoColor=C5F765" />
+<img alt="Git" src="https://img.shields.io/badge/Git-101818?style=flat-square&logo=git&logoColor=F47A64" />
+<img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub_Actions-101818?style=flat-square&logo=githubactions&logoColor=49D7CD" />
+<img alt="Cloudflare Pages" src="https://img.shields.io/badge/Cloudflare_Pages-101818?style=flat-square&logo=cloudflarepages&logoColor=F7BA6B" />
+
+<sub>These tools span multiple experiments. Not every project uses every tool.</sub>
 
 </div>
 
-<!-- END OF TRANSMISSION // KEEP BUILDING -->
+<img src="./assets/studio-divider.svg" width="100%" alt="" />
+
+## 04 — HOW I BUILD
+
+1. **DREAM UP** — imagine something worth making.
+2. **BUILD TO LEARN** — prototype the core, then test.
+3. **DESIGN WITH INTENT** — refine layout, motion, and usability.
+4. **ENGINEER FOR CHANGE** — document decisions and improve architecture.
+5. **KEEP ADAPTING** — learn from what breaks, then rebuild it better.
+
+### On the workbench
+
+- **ShadowPlay NEXT** — capture, overlay, native integration and build tooling.
+- **Duluka Studios** — the portfolio, visual identity, and project discovery experience.
+- **Side experiments** — web desktop interfaces, HyperOS mods, Minecraft tooling, and timed lyrics.
+
+<img src="./assets/studio-divider.svg" width="100%" alt="" />
+
+## 05 — THE STUDIO PULSE
+
+<div align="center">
+
+[![Followers](https://img.shields.io/github/followers/ScotcsDuluka?style=for-the-badge&logo=github&labelColor=101818&color=C5F765&label=FOLLOWERS)](https://github.com/ScotcsDuluka?tab=followers)
+[![ShadowPlay NEXT last public commit](https://img.shields.io/github/last-commit/ScotcsDuluka/ShadowPlay-NEXT/Stable?style=for-the-badge&logo=git&labelColor=101818&color=49D7CD&label=SHADOWPLAY%20NEXT)](https://github.com/ScotcsDuluka/ShadowPlay-NEXT/commits/Stable)
+
+</div>
+
+<details>
+<summary><strong>VIEW ADDITIONAL GITHUB STATS</strong> · provided by third-party widgets</summary>
+
+<br />
+
+<div align="center">
+<img src="https://github-readme-stats.vercel.app/api?username=ScotcsDuluka&show_icons=true&hide_border=true&bg_color=0B1212&title_color=C5F765&text_color=D8E8E3&icon_color=49D7CD" width="420" alt="GitHub profile statistics, generated by a third party" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ScotcsDuluka&layout=compact&hide_border=true&bg_color=0B1212&title_color=C5F765&text_color=D8E8E3&langs_count=8" width="360" alt="Languages represented in public repositories, generated by a third party" />
+</div>
+
+<sub>Third-party images may be temporarily unavailable. Language distribution is not a measure of proficiency.</sub>
+
+</details>
+
+<img src="./assets/studio-divider.svg" width="100%" alt="" />
+
+<div align="center">
+
+## 06 — LET'S CONNECT
+
+**IF IT DOESN'T EXIST, BUILD IT.**
+
+[**Studio website**](https://duluka-studios.pages.dev/) &nbsp;·&nbsp; [**GitHub projects**](https://github.com/ScotcsDuluka?tab=repositories) &nbsp;·&nbsp; [**Discord community**](https://discord.gg/v5qUGVD3jZ)
+
+<br />
+
+**DULUKA STUDIOS™**
+
+<sub>INDEPENDENT BY DESIGN · CURIOUS BY DEFAULT · MADE IN THAILAND 🇹🇭</sub>
+
+</div>
+
+<!-- END / STUDIO EDITION / DREAM IT. BUILD IT. MAKE IT REAL. -->
